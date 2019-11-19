@@ -27,7 +27,7 @@ namespace Blauhaus.Sync.Server.Repository.Repository
         public async Task<TEntity> InsertAsync(TEntity entity)
         {
             var query = new Query(typeof(TEntity).Name).AsInsert(entity);
-            var entity = await query.GetAsync<TEntity>();
+            return await query.<TEntity>();
 
         }
     }

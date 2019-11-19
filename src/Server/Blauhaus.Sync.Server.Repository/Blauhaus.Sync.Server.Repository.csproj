@@ -7,6 +7,11 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="SqlKata" Version="1.1.7" />
+    <PackageReference Include="SqlKata.Execution" Version="1.1.7" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\..\Common\Blauhaus.Sync.Common\Blauhaus.Sync.Common.csproj" />
     <ProjectReference Include="..\Blauhaus.Sync.Server.Common\Blauhaus.Sync.Server.Common.csproj" />
   </ItemGroup>

@@ -13,13 +13,15 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{FA675335
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Blauhaus.Sync.Common", "Common\Blauhaus.Sync.Common\Blauhaus.Sync.Common.csproj", "{035C7F65-1392-4637-927A-33FB296B2077}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Blauhaus.Sync.Client.Repository.SQLite", "Client\Blauhaus.Sync.Client.Repository.SQLite\Blauhaus.Sync.Client.Repository.SQLite.csproj", "{903F0602-98BC-460D-9E88-E077EB21F3B4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Blauhaus.Sync.Client.Common", "Client\Blauhaus.Sync.Client.Common\Blauhaus.Sync.Client.Common.csproj", "{2B4F7B87-8559-4C4D-8683-A65574C52392}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Blauhaus.Sync.Server.Repository.Dapper", "Server\Blauhaus.Sync.Server.Repository.Dapper\Blauhaus.Sync.Server.Repository.Dapper.csproj", "{E497D2E2-6D9D-48C5-8E67-98323992FA3A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Blauhaus.Sync.Server.Common", "Server\Blauhaus.Sync.Server.Common\Blauhaus.Sync.Server.Common.csproj", "{D4922238-03E5-48E5-9950-1548FAD35A32}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Blauhaus.Sync.Client.Common", "Client\Blauhaus.Sync.Client.Common\Blauhaus.Sync.Client.Common.csproj", "{2B4F7B87-8559-4C4D-8683-A65574C52392}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Blauhaus.Sync.Client.Repository", "Client\Blauhaus.Sync.Client.Repository\Blauhaus.Sync.Client.Repository.csproj", "{5D8B004F-F2DB-45B7-B9DC-A6310BB6FDED}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Blauhaus.Sync.Server.Common", "Server\Blauhaus.Sync.Server.Common\Blauhaus.Sync.Server.Common.csproj", "{D4922238-03E5-48E5-9950-1548FAD35A32}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Blauhaus.Sync.Server.Repository", "Server\Blauhaus.Sync.Server.Repository\Blauhaus.Sync.Server.Repository.csproj", "{08AEBEF1-B0D5-413E-9D7B-184F9234163C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Blauhaus.Sync.Tests.Server", "Tests\Blauhaus.Sync.Tests.Server\Blauhaus.Sync.Tests.Server.csproj", "{52D1FA10-2081-41A7-B8F8-6EE103826F36}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -31,14 +33,6 @@ Global
 		{035C7F65-1392-4637-927A-33FB296B2077}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{035C7F65-1392-4637-927A-33FB296B2077}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{035C7F65-1392-4637-927A-33FB296B2077}.Release|Any CPU.Build.0 = Release|Any CPU
-		{903F0602-98BC-460D-9E88-E077EB21F3B4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{903F0602-98BC-460D-9E88-E077EB21F3B4}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{903F0602-98BC-460D-9E88-E077EB21F3B4}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{903F0602-98BC-460D-9E88-E077EB21F3B4}.Release|Any CPU.Build.0 = Release|Any CPU
-		{E497D2E2-6D9D-48C5-8E67-98323992FA3A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{E497D2E2-6D9D-48C5-8E67-98323992FA3A}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{E497D2E2-6D9D-48C5-8E67-98323992FA3A}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{E497D2E2-6D9D-48C5-8E67-98323992FA3A}.Release|Any CPU.Build.0 = Release|Any CPU
 		{2B4F7B87-8559-4C4D-8683-A65574C52392}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{2B4F7B87-8559-4C4D-8683-A65574C52392}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2B4F7B87-8559-4C4D-8683-A65574C52392}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -47,16 +41,29 @@ Global
 		{D4922238-03E5-48E5-9950-1548FAD35A32}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D4922238-03E5-48E5-9950-1548FAD35A32}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D4922238-03E5-48E5-9950-1548FAD35A32}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5D8B004F-F2DB-45B7-B9DC-A6310BB6FDED}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5D8B004F-F2DB-45B7-B9DC-A6310BB6FDED}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5D8B004F-F2DB-45B7-B9DC-A6310BB6FDED}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5D8B004F-F2DB-45B7-B9DC-A6310BB6FDED}.Release|Any CPU.Build.0 = Release|Any CPU
+		{08AEBEF1-B0D5-413E-9D7B-184F9234163C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{08AEBEF1-B0D5-413E-9D7B-184F9234163C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{08AEBEF1-B0D5-413E-9D7B-184F9234163C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{08AEBEF1-B0D5-413E-9D7B-184F9234163C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{52D1FA10-2081-41A7-B8F8-6EE103826F36}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{52D1FA10-2081-41A7-B8F8-6EE103826F36}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{52D1FA10-2081-41A7-B8F8-6EE103826F36}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{52D1FA10-2081-41A7-B8F8-6EE103826F36}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{035C7F65-1392-4637-927A-33FB296B2077} = {817E90F9-18F5-4E1B-9093-AF4DBBBBE11A}
-		{903F0602-98BC-460D-9E88-E077EB21F3B4} = {98255645-0C1C-491A-971C-4C5C5523F53B}
-		{E497D2E2-6D9D-48C5-8E67-98323992FA3A} = {B96A420F-E948-4A83-83BF-320E80585C38}
 		{2B4F7B87-8559-4C4D-8683-A65574C52392} = {98255645-0C1C-491A-971C-4C5C5523F53B}
 		{D4922238-03E5-48E5-9950-1548FAD35A32} = {B96A420F-E948-4A83-83BF-320E80585C38}
+		{5D8B004F-F2DB-45B7-B9DC-A6310BB6FDED} = {98255645-0C1C-491A-971C-4C5C5523F53B}
+		{08AEBEF1-B0D5-413E-9D7B-184F9234163C} = {B96A420F-E948-4A83-83BF-320E80585C38}
+		{52D1FA10-2081-41A7-B8F8-6EE103826F36} = {FA675335-2168-4A89-A5AC-DD70607FB6D5}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {4FFEBD78-DDC3-4079-8B94-DA80E5DE460B}

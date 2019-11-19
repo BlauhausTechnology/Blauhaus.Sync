@@ -8,7 +8,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\Common\Blauhaus.Sync.Common\Blauhaus.Sync.Common.csproj" />
-    <ProjectReference Include="..\Blauhaus.Sync.Server.Common\Blauhaus.Sync.Server.Common.csproj" />
   </ItemGroup>
 
 </Project>

@@ -8,15 +8,16 @@
 
     <ItemGroup>
 	    <PackageReference Include="Blauhaus.Common.TestHelpers" Version="1.11.11" />
-	    <PackageReference Include="Blauhaus.Domain.TestHelpers" Version="1.4.23" />
+	    <PackageReference Include="Blauhaus.Domain.TestHelpers" Version="1.5.0" />
     </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="MockBuilders\" />
-    </ItemGroup>
-
-    <ItemGroup>
+      <ProjectReference Include="..\Blauhaus.Sync.Client.SignalR\Blauhaus.Sync.Client.SignalR.csproj" />
       <ProjectReference Include="..\Blauhaus.Sync.Client\Blauhaus.Sync.Client.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="Extensions\" />
     </ItemGroup>
 
 </Project>

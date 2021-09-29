@@ -19,14 +19,14 @@ namespace Blauhaus.Sync.Client
     {
         private readonly IAnalyticsService _analyticsService;
         private readonly ISyncDtoCache<TDto, TId> _syncDtoCache;
-        private readonly ICommandHandler<Domain.Abstractions.Sync.DtoBatch<TDto, TId>, DtoSyncCommand> _syncCommandHandler;
+        private readonly ICommandHandler<DtoBatch<TDto, TId>, DtoSyncCommand> _syncCommandHandler;
 
         protected string DtoName = typeof(TDto).Name;
 
         public DtoSyncHandler(
             IAnalyticsService analyticsService,
             ISyncDtoCache<TDto, TId> syncDtoCache,
-            ICommandHandler<Domain.Abstractions.Sync.DtoBatch<TDto, TId>, DtoSyncCommand> syncCommandHandler)
+            ICommandHandler<DtoBatch<TDto, TId>, DtoSyncCommand> syncCommandHandler)
         {
             _analyticsService = analyticsService;
             _syncDtoCache = syncDtoCache;

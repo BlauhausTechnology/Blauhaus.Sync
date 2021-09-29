@@ -12,8 +12,6 @@
     <Compile Include="Client\.Base\BaseClientSyncTest.cs" />
     <Compile Include="Client\.Base\BaseSqliteTest.cs" />
     <Compile Include="Client\DtoSyncClientTests\.Base\BaseDtoSyncClientTest.cs" />
-    <Compile Include="Client\SignalRSyncDtoClientTests\.Base\BaseSignalRSyncDtoClientTest.cs" />
-    <Compile Include="Client\SignalRSyncDtoClientTests\.Base\SignalRConnectionProxyMockBuilder.cs" />
     <Compile Include="Client\SyncDtoCacheTests\.Base\BaseSyncDtoCacheTest.cs" />
     <Compile Include="Client\SyncDtoCacheTests\.Base\TestSyncDtoCache.cs" />
     <Compile Include="Client\SyncManagerTests\.Base\BaseSyncManagerTest.cs" />
@@ -33,6 +31,10 @@
     <ProjectReference Include="..\Blauhaus.Sync.Client.Sqlite\Blauhaus.Sync.Client.Sqlite.csproj" />
     <ProjectReference Include="..\Blauhaus.Sync.Client\Blauhaus.Sync.Client.csproj" />
     <ProjectReference Include="..\Blauhaus.Sync.TestHelpers\Blauhaus.Sync.TestHelpers.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Client\SignalRSyncDtoClientTests\" />
   </ItemGroup>
 
 </Project>

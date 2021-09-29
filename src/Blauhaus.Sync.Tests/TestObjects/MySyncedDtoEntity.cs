@@ -1,11 +1,10 @@
 ﻿using System;
 using Blauhaus.Domain.Abstractions.Entities;
-using Blauhaus.Domain.Client.Sqlite.Entities;
-using Blauhaus.Sync.Tests.TestObjects;
+using Blauhaus.Sync.Client.Sqlite;
 using Newtonsoft.Json;
 using SQLite;
 
-namespace Blauhaus.Sync.Tests.Client.TestObjects
+namespace Blauhaus.Sync.Tests.TestObjects
 {
     public class MySyncedDtoEntity : SyncClientEntity<Guid>
     {

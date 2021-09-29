@@ -12,7 +12,7 @@ using SQLite;
 using System.Collections.Generic;
 using System;
 using System.Threading.Tasks;
-using Blauhaus.Sync.Tests.Client.TestObjects;
+using Blauhaus.Sync.Tests.TestObjects;
 
 namespace Blauhaus.Sync.Tests.Client.Base
 {

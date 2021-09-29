@@ -13,7 +13,7 @@
 	<ItemGroup>
 		<PackageReference Include="Blauhaus.ClientActors" Version="0.9.1" />
 		<PackageReference Include="Blauhaus.ClientDatabase.Sqlite" Version="0.7.9" />
-		<PackageReference Include="Blauhaus.Domain.Client.Sqlite" Version="1.4.23" />
+		<PackageReference Include="Blauhaus.Domain.Client.Sqlite" Version="1.5.0" />
 	</ItemGroup>
 
 </Project>

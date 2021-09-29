@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Blauhaus.Common.TestHelpers.Extensions;
-using Blauhaus.Domain.Abstractions.Sync;
 using Blauhaus.Errors;
 using Blauhaus.Responses;
+using Blauhaus.Sync.Abstractions.Common;
 using Blauhaus.Sync.Tests.Client.DtoSyncClientTests.Base;
 using Blauhaus.Sync.Tests.TestObjects;
 using NUnit.Framework;

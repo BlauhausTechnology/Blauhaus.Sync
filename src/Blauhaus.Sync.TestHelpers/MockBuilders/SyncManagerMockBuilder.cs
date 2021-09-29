@@ -2,9 +2,10 @@
 using Blauhaus.Common.TestHelpers.MockBuilders;
 using Blauhaus.Domain.Abstractions.Sync;
 using Blauhaus.Responses;
+using Blauhaus.Sync.Abstractions.Client;
 using Moq;
 
-namespace Blauhaus.Sync.TestHelpers
+namespace Blauhaus.Sync.TestHelpers.MockBuilders
 {
     public class SyncManagerMockBuilder : BaseAsyncPublisherMockBuilder<SyncManagerMockBuilder, ISyncManager, IOverallSyncStatus>
     {

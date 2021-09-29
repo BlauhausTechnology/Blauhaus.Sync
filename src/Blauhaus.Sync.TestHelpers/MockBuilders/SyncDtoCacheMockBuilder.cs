@@ -1,11 +1,11 @@
 ﻿using System;
 using Blauhaus.Common.Abstractions;
-using Blauhaus.Domain.Abstractions.DtoCaches;
 using Blauhaus.Domain.Abstractions.Entities;
 using Blauhaus.Domain.TestHelpers.MockBuilders.Client.DtoCaches;
+using Blauhaus.Sync.Abstractions.Client;
 using Moq;
 
-namespace Blauhaus.Sync.TestHelpers
+namespace Blauhaus.Sync.TestHelpers.MockBuilders
 {
 
     public class SyncDtoCacheMockBuilder<TDto, TId> : BaseSyncDtoCacheMockBuilder<SyncDtoCacheMockBuilder<TDto, TId>, ISyncDtoCache<TDto, TId>, TDto, TId>

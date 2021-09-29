@@ -18,6 +18,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Blauhaus.Sync.Tests", "Blau
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Blauhaus.Sync.TestHelpers", "Blauhaus.Sync.TestHelpers\Blauhaus.Sync.TestHelpers.csproj", "{B689D3C6-D151-418C-98D6-BCAEC5DC7571}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Blauhaus.Sync.Client.SignalR", "Blauhaus.Sync.Client.SignalR\Blauhaus.Sync.Client.SignalR.csproj", "{38833172-53C6-4764-B7E9-E20DC595D211}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -44,6 +46,10 @@ Global
 		{B689D3C6-D151-418C-98D6-BCAEC5DC7571}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B689D3C6-D151-418C-98D6-BCAEC5DC7571}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B689D3C6-D151-418C-98D6-BCAEC5DC7571}.Release|Any CPU.Build.0 = Release|Any CPU
+		{38833172-53C6-4764-B7E9-E20DC595D211}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{38833172-53C6-4764-B7E9-E20DC595D211}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{38833172-53C6-4764-B7E9-E20DC595D211}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{38833172-53C6-4764-B7E9-E20DC595D211}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

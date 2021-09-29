@@ -5,7 +5,7 @@ using Blauhaus.Sync.Abstractions.Client;
 using Blauhaus.Sync.Client.SyncHandler;
 using Moq;
 
-namespace Blauhaus.Sync.TestHelpers
+namespace Blauhaus.Sync.TestHelpers.MockBuilders
 {
     public class DtoSyncClientMockBuilder : DtoSyncClientMockBuilder<DtoSyncClientMockBuilder, IDtoSyncHandler>
     {

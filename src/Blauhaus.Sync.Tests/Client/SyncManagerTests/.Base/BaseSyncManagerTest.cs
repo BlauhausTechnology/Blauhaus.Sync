@@ -1,6 +1,7 @@
 ﻿using Blauhaus.Common.Abstractions;
 using Blauhaus.Sync.Client;
 using Blauhaus.Sync.TestHelpers;
+using Blauhaus.Sync.TestHelpers.MockBuilders;
 using Blauhaus.Sync.Tests.Client.Base;
 using Blauhaus.TestHelpers.MockBuilders;
 

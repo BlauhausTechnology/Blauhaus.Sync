@@ -4,8 +4,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using Blauhaus.Domain.Abstractions.Entities;
 using Blauhaus.Domain.Abstractions.Sync;
+using Blauhaus.Sync.Abstractions.Common;
 using Blauhaus.Sync.Tests.Client.SyncDtoCacheTests.Base;
-using Blauhaus.Sync.Tests.Client.TestObjects;
 using Blauhaus.Sync.Tests.TestObjects;
 using NUnit.Framework;
 

@@ -20,5 +20,6 @@ namespace Blauhaus.Sync.Tests.Client.SignalRSyncDtoClientTests.Base
 
         protected ConnectivityServiceMockBuilder MockConnectivityService => AddMock<ConnectivityServiceMockBuilder, IConnectivityService>().Invoke();
         protected SignalRConnectionProxyMockBuilder MockSignalRConnectionProxy => AddMock<SignalRConnectionProxyMockBuilder, ISignalRConnectionProxy>().Invoke(); 
+
     }
 }

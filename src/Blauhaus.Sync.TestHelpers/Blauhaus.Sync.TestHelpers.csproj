@@ -1,0 +1,22 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+	  <LangVersion>8</LangVersion>
+	  <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+    <ItemGroup>
+	    <PackageReference Include="Blauhaus.Common.TestHelpers" Version="1.11.11" />
+	    <PackageReference Include="Blauhaus.Domain.TestHelpers" Version="1.4.23" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="MockBuilders\" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\Blauhaus.Sync.Client\Blauhaus.Sync.Client.csproj" />
+    </ItemGroup>
+
+</Project>

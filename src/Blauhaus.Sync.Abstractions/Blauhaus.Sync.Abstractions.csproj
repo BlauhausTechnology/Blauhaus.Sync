@@ -6,4 +6,14 @@
       <Nullable>enable</Nullable>
   </PropertyGroup> 
 
+    <ItemGroup>
+	    <PackageReference Include="Blauhaus.Common.Abstractions" Version="1.11.11" />
+	    <PackageReference Include="Blauhaus.Domain.Abstractions" Version="1.4.23" />
+	    <PackageReference Include="Blauhaus.Errors" Version="0.4.3" />
+    </ItemGroup> 
+
+    <ItemGroup>
+      <Folder Include="Server\" />
+    </ItemGroup>
+
 </Project>

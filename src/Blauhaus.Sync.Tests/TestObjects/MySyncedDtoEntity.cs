@@ -1,5 +1,6 @@
 ﻿using System;
 using Blauhaus.Domain.Abstractions.Entities;
+using Blauhaus.Sync.Abstractions.Common;
 using Blauhaus.Sync.Client.Sqlite;
 using Newtonsoft.Json;
 using SQLite;

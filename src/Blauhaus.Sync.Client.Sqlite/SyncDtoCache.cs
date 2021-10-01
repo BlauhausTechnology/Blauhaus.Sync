@@ -34,11 +34,11 @@ namespace Blauhaus.Sync.Client.Sqlite
             _analyticsService = analyticsService;
             _sqliteDatabaseService = sqliteDatabaseService;
 
-            _lastModifiedQueryStart = $"SELECT {nameof(ISyncClientEntity.ModifiedAtTicks)} " +
+            _lastModifiedQueryStart = $"SELECT ModifiedAtTicks " +
                                  $"FROM {typeof(TEntity).Name} " +
-                                 $"WHERE {nameof(ISyncClientEntity.SyncState)} == {(int)SyncState.InSync} ";
+                                 $"WHERE SyncState == {(int)SyncState.InSync} ";
 
-            _lastModifiedQueryEnd = $"ORDER BY {nameof(ISyncClientEntity.ModifiedAtTicks)} DESC LIMIT 1";
+            _lastModifiedQueryEnd = $"ORDER BY ModifiedAtTicks DESC LIMIT 1";
 
         }
 

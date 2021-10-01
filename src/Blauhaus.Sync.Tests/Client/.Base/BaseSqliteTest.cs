@@ -3,10 +3,7 @@ using Blauhaus.Analytics.TestHelpers.MockBuilders;
 using Blauhaus.ClientDatabase.Sqlite.Config;
 using Blauhaus.ClientDatabase.Sqlite.Service;
 using Blauhaus.DeviceServices.Abstractions.DeviceInfo;
-using Blauhaus.DeviceServices.TestHelpers.MockBuilders;
-using Blauhaus.Domain.Client.Sqlite.Repository;
-using Blauhaus.Domain.Client.Sqlite.SyncRepository;
-using Blauhaus.Domain.TestHelpers.MockBuilders.Client.ClientEntityConverters;
+using Blauhaus.DeviceServices.TestHelpers.MockBuilders; 
 using NUnit.Framework;
 using SQLite;
 using System.Collections.Generic;
@@ -30,11 +27,9 @@ namespace Blauhaus.Sync.Tests.Client.Base
             Connection = SqliteDatabaseService.AsyncConnection;
 
             AddService(SqliteDatabaseService);
-            AddService(x => MockAnalyticsService.Object);
         }
 
         protected DeviceInfoServiceMockBuilder MockDeviceInfoService => AddMock<DeviceInfoServiceMockBuilder, IDeviceInfoService>().Invoke();
-        protected AnalyticsServiceMockBuilder MockAnalyticsService => AddMock<AnalyticsServiceMockBuilder, IAnalyticsService>().Invoke();
     }
 
 

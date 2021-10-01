@@ -10,7 +10,6 @@ using Blauhaus.Common.Abstractions;
 using Blauhaus.Domain.Abstractions.DtoCaches;
 using Blauhaus.Domain.Abstractions.Entities;
 using Blauhaus.Domain.Abstractions.Errors;
-using Blauhaus.Domain.Abstractions.Sync;
 using Blauhaus.Errors;
 using Blauhaus.Sync.Abstractions.Client;
 using Blauhaus.Sync.Abstractions.Common;

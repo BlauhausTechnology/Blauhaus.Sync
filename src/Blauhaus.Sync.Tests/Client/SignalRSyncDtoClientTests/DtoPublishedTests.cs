@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Threading.Tasks;
-using Blauhaus.Domain.TestHelpers.MockBuilders.Client.Sync;
 using Blauhaus.SignalR.Client.Clients;
 using Blauhaus.Sync.TestHelpers.MockBuilders;
 using Blauhaus.Sync.Tests.Client.Base;

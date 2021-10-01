@@ -1,6 +1,5 @@
 ﻿using Blauhaus.Common.Abstractions;
 using Blauhaus.Common.TestHelpers.MockBuilders;
-using Blauhaus.Domain.Abstractions.Sync;
 using Blauhaus.Responses;
 using Blauhaus.Sync.Abstractions.Client;
 using Moq;

@@ -69,7 +69,7 @@ namespace Blauhaus.Sync.Client.Sqlite
             });
         }
         
-        protected virtual string GetAdditionalFilterClause(IKeyValueProvider command)
+        protected virtual string GetAdditionalFilterClause(IKeyValueProvider settingsProvider)
         {
             return string.Empty;
         }

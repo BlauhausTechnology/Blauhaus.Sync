@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
@@ -14,6 +15,7 @@ using Blauhaus.Errors;
 using Blauhaus.Sync.Abstractions.Client;
 using Blauhaus.Sync.Abstractions.Common;
 using Newtonsoft.Json;
+using SQLite;
 
 namespace Blauhaus.Sync.Client.Sqlite
 {
@@ -22,8 +24,9 @@ namespace Blauhaus.Sync.Client.Sqlite
         where TEntity : SyncClientEntity<TId>, new()
         where TId : IEquatable<TId>
     {
-        private readonly IAnalyticsService _analyticsService;
-        private readonly ISqliteDatabaseService _sqliteDatabaseService;
+        protected readonly IAnalyticsService AnalyticsService;
+        protected readonly ISqliteDatabaseService SqliteDatabaseService;
+
         private readonly string _lastModifiedQueryStart;
         private readonly string _lastModifiedQueryEnd;
 
@@ -31,8 +34,8 @@ namespace Blauhaus.Sync.Client.Sqlite
             IAnalyticsService analyticsService,
             ISqliteDatabaseService sqliteDatabaseService)
         {
-            _analyticsService = analyticsService;
-            _sqliteDatabaseService = sqliteDatabaseService;
+            AnalyticsService = analyticsService;
+            SqliteDatabaseService = sqliteDatabaseService;
 
             _lastModifiedQueryStart = $"SELECT ModifiedAtTicks " +
                                  $"FROM {typeof(TEntity).Name} " +
@@ -62,7 +65,7 @@ namespace Blauhaus.Sync.Client.Sqlite
                     
                 lastModifiedQuery.Append(_lastModifiedQueryEnd);
 
-                return await _sqliteDatabaseService.AsyncConnection.ExecuteScalarAsync<long>(lastModifiedQuery.ToString());
+                return await SqliteDatabaseService.AsyncConnection.ExecuteScalarAsync<long>(lastModifiedQuery.ToString());
             });
         }
         
@@ -82,25 +85,25 @@ namespace Blauhaus.Sync.Client.Sqlite
                     var entity = await PopulateEntityAsync(dto);
                     entity.SyncState = SyncState.InSync;
 
-                    await _sqliteDatabaseService.AsyncConnection
+                    await SqliteDatabaseService.AsyncConnection
                         .InsertOrReplaceAsync(entity);
 
-                    _analyticsService.Debug($"{typeof(TDto).Name} saved as {typeof(TEntity).Name}");
+                    AnalyticsService.Debug($"{typeof(TDto).Name} saved as {typeof(TEntity).Name}");
 
                     await UpdateSubscribersAsync(dto);
                 }
             });
         }
-
+        
 
         public Task HandleAsync(TDto dto)
         {
             return InvokeAsync(async () =>
             {
-                await _sqliteDatabaseService.AsyncConnection
+                await SqliteDatabaseService.AsyncConnection
                     .InsertOrReplaceAsync(await PopulateEntityAsync(dto));
 
-                _analyticsService.Debug($"{typeof(TDto).Name} saved as {typeof(TEntity).Name}");
+                AnalyticsService.Debug($"{typeof(TDto).Name} saved as {typeof(TEntity).Name}");
 
                 await UpdateSubscribersAsync(dto);
             });
@@ -135,7 +138,7 @@ namespace Blauhaus.Sync.Client.Sqlite
         {
             return InvokeAsync(async () =>
             {
-                await _sqliteDatabaseService.AsyncConnection.Table<TEntity>()
+                await SqliteDatabaseService.AsyncConnection.Table<TEntity>()
                     .DeleteAsync(x => x.Id.Equals(id));
             });
         }
@@ -144,7 +147,7 @@ namespace Blauhaus.Sync.Client.Sqlite
         {
             return InvokeAsync(async () =>
             {
-                await _sqliteDatabaseService.AsyncConnection.Table<TEntity>()
+                await SqliteDatabaseService.AsyncConnection.Table<TEntity>()
                     .DeleteAsync(x => true);
             });
         }
@@ -152,8 +155,8 @@ namespace Blauhaus.Sync.Client.Sqlite
         protected async Task<IReadOnlyList<TDto>> LoadManyAsync(Expression<Func<TEntity, bool>>? search = null)
         {
             var entities = search == null 
-                ? await _sqliteDatabaseService.AsyncConnection.Table<TEntity>().ToListAsync()
-                : await _sqliteDatabaseService.AsyncConnection.Table<TEntity>().Where(search).ToListAsync();
+                ? await SqliteDatabaseService.AsyncConnection.Table<TEntity>().ToListAsync()
+                : await SqliteDatabaseService.AsyncConnection.Table<TEntity>().Where(search).ToListAsync();
 
             var dtos = new TDto[entities.Count];
             for (var i = 0; i < dtos.Length; i++)
@@ -164,9 +167,19 @@ namespace Blauhaus.Sync.Client.Sqlite
             return dtos;
         }
 
+        protected async Task<IReadOnlyList<TId>> LoadManyIdsAsync(Expression<Func<TEntity, bool>>? search = null)
+        {
+            var entities = search == null 
+                ? await SqliteDatabaseService.AsyncConnection.Table<TEntity>().ToListAsync()
+                : await SqliteDatabaseService.AsyncConnection.Table<TEntity>().Where(search).ToListAsync();
+
+            return entities.Select(x => x.Id).ToArray();
+        }
+        
+
         protected async Task<TDto?> LoadOneAsync(TId id)
         {
-            var entity = await _sqliteDatabaseService.AsyncConnection.Table<TEntity>().FirstOrDefaultAsync(x => x.Id.Equals(id));
+            var entity = await SqliteDatabaseService.AsyncConnection.Table<TEntity>().FirstOrDefaultAsync(x => x.Id.Equals(id));
             if (entity == null)
             {
                 return null;

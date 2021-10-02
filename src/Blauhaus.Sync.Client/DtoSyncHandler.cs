@@ -39,7 +39,13 @@ namespace Blauhaus.Sync.Client
             {
                 var lastModifiedTicks = await _syncDtoCache.LoadLastModifiedTicksAsync(settingsProvider);
 
-                var syncCommand = DtoSyncCommand.Create<TDto>(lastModifiedTicks);
+                if (lastModifiedTicks == null)
+                {
+                    _analyticsService.Trace(this, $"LastModified is null, {typeof(TDto).Name} won't sync");
+                    return Response.Success();
+                }
+
+                var syncCommand = DtoSyncCommand.Create<TDto>(lastModifiedTicks.Value);
 
                 var syncResult = await _syncCommandHandler.HandleAsync(syncCommand);
                 if (syncResult.IsFailure)

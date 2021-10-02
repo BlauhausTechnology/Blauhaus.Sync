@@ -37,7 +37,7 @@ namespace Blauhaus.Sync.Client.Sqlite
             AnalyticsService = analyticsService;
             SqliteDatabaseService = sqliteDatabaseService;
 
-            _lastModifiedQueryStart = $"SELECT ModifiedAtTicks " +
+            _lastModifiedQueryStart = "SELECT ModifiedAtTicks " +
                                  $"FROM {typeof(TEntity).Name} " +
                                  $"WHERE SyncState == {(int)SyncState.InSync} ";
 
@@ -50,9 +50,9 @@ namespace Blauhaus.Sync.Client.Sqlite
             return Task.FromResult(AddSubscriber(handler, filter));
         }
 
-        public Task<long> LoadLastModifiedTicksAsync(IKeyValueProvider? settingsProvider)
+        public Task<long?> LoadLastModifiedTicksAsync(IKeyValueProvider? settingsProvider)
         {
-            return InvokeLockedAsync(async () =>
+            return InvokeLockedAsync<long?>(async () =>
             {
                 var lastModifiedQuery = new StringBuilder();
                     
@@ -60,7 +60,9 @@ namespace Blauhaus.Sync.Client.Sqlite
 
                 if (settingsProvider != null)
                 {
-                    lastModifiedQuery.Append(GetAdditionalFilterClause(settingsProvider));
+                    var additionalFilter = GetAdditionalFilterClause(settingsProvider);
+                    if (additionalFilter == null) return null;
+                    lastModifiedQuery.Append(additionalFilter);
                 }
                     
                 lastModifiedQuery.Append(_lastModifiedQueryEnd);
@@ -69,7 +71,7 @@ namespace Blauhaus.Sync.Client.Sqlite
             });
         }
         
-        protected virtual string GetAdditionalFilterClause(IKeyValueProvider settingsProvider)
+        protected virtual string? GetAdditionalFilterClause(IKeyValueProvider settingsProvider)
         {
             return string.Empty;
         }

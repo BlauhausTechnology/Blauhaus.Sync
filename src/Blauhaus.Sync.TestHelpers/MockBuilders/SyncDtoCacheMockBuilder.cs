@@ -21,7 +21,7 @@ namespace Blauhaus.Sync.TestHelpers.MockBuilders
         where TId : IEquatable<TId>
     {
 
-        public TBuilder Where_LoadLastModifiedTicksAsync_returns(long value)
+        public TBuilder Where_LoadLastModifiedTicksAsync_returns(long? value)
         {
             Mock.Setup(x => x.LoadLastModifiedTicksAsync(It.IsAny<IKeyValueProvider?>()))
                 .ReturnsAsync(value);

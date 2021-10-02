@@ -35,6 +35,22 @@ namespace Blauhaus.Sync.Tests.Client.SyncDtoCacheTests
         }
 
         [Test]
+        public async Task SHOULD_apply_additional_filters()
+        {
+            //Arrange
+            Sut.AdditionalFilterClause = "AND Name = \'Bill\'";
+            await Connection.InsertAsync(SyncedDtoEntityOne);
+            await Connection.InsertAsync(SyncedDtoEntityTwo);
+            await Connection.InsertAsync(SyncedDtoEntityThree);
+            
+            //Act
+            var result = await Sut.LoadLastModifiedTicksAsync(MockKeyValueProvider);
+            
+            //Assert
+            Assert.That(result, Is.EqualTo(2000));
+        }
+
+        [Test]
         public async Task IF_entity_is_not_Synced_SHOULD_ignore()
         {
             //Arrange

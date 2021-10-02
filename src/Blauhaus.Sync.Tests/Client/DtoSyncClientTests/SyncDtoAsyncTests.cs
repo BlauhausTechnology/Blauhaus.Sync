@@ -20,6 +20,7 @@ namespace Blauhaus.Sync.Tests.Client.DtoSyncClientTests
             base.Setup();
 
             MockSyncCommandHandler.Where_HandleAsync_returns(DtoBatch<MyDto, Guid>.Create(Array.Empty<MyDto>(), 0));
+            MockSyncDtoCache.Where_LoadLastModifiedTicksAsync_returns(DateTime.UtcNow.Ticks);
         }
 
         [Test]
@@ -34,6 +35,19 @@ namespace Blauhaus.Sync.Tests.Client.DtoSyncClientTests
 
             //Assert
             MockSyncCommandHandler.Verify_HandleAsync_called_With(x => x.ModifiedAfterTicks == cacheLastModified);
+        }
+
+        [Test]
+        public async Task IF_LastModified_is_null_SHOULD_not_sync()
+        {
+            //Arrange
+            MockSyncDtoCache.Where_LoadLastModifiedTicksAsync_returns(null);
+
+            //Act
+            await Sut.SyncDtoAsync(MockKeyValueProvider);
+
+            //Assert
+            MockSyncCommandHandler.Verify_HandleAsync_NOT_called();
         }
          
         [Test]

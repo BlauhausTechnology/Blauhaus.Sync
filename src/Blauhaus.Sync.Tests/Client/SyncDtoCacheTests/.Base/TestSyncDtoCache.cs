@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using Blauhaus.Analytics.Abstractions.Service;
 using Blauhaus.ClientDatabase.Sqlite.Service;
+using Blauhaus.Common.Abstractions;
 using Blauhaus.Sync.Client.Sqlite;
 using Blauhaus.Sync.Tests.TestObjects;
 
@@ -19,5 +20,12 @@ namespace Blauhaus.Sync.Tests.Client.SyncDtoCacheTests.Base
             entity.Name = dto.Name;
             return entity;
         }
+
+        protected override string? GetAdditionalFilterClause(IKeyValueProvider settingsProvider)
+        {
+            return AdditionalFilterClause;
+        }
+
+        public string? AdditionalFilterClause { get; set; } = string.Empty;
     }
 }

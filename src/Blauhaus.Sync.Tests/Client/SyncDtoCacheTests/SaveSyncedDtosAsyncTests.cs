@@ -9,7 +9,7 @@ using NUnit.Framework;
 
 namespace Blauhaus.Sync.Tests.Client.SyncDtoCacheTests
 {
-    public class SavedSyncedDtosAsyncTests : BaseSyncDtoCacheTest
+    public class SaveSyncedDtosAsyncTests : BaseSyncDtoCacheTest
     {
         private DtoBatch<MyDto, Guid> _dtoBatch = null!;
 

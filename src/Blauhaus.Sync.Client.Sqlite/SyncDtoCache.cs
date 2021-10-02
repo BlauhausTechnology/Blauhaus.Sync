@@ -60,7 +60,7 @@ namespace Blauhaus.Sync.Client.Sqlite
 
                 if (settingsProvider != null)
                 {
-                    GetAdditionalFilterClause(settingsProvider);
+                    lastModifiedQuery.Append(GetAdditionalFilterClause(settingsProvider));
                 }
                     
                 lastModifiedQuery.Append(_lastModifiedQueryEnd);

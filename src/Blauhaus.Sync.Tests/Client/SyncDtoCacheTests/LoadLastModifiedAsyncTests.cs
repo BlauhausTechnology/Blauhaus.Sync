@@ -38,7 +38,7 @@ namespace Blauhaus.Sync.Tests.Client.SyncDtoCacheTests
         public async Task SHOULD_apply_additional_filters()
         {
             //Arrange
-            Sut.AdditionalFilterClause = "AND Name = \'Bill\'";
+            Sut.ApplyAdditionalFilter = true;
             await Connection.InsertAsync(SyncedDtoEntityOne);
             await Connection.InsertAsync(SyncedDtoEntityTwo);
             await Connection.InsertAsync(SyncedDtoEntityThree);

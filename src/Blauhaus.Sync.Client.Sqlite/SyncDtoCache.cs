@@ -54,26 +54,32 @@ namespace Blauhaus.Sync.Client.Sqlite
         {
             return InvokeLockedAsync<long?>(async () =>
             {
-                var lastModifiedQuery = new StringBuilder();
-                    
-                lastModifiedQuery.Append(_lastModifiedQueryStart);
+                var query = SqliteDatabaseService.AsyncConnection.Table<TEntity>()
+                    .Where(x => x.SyncState == SyncState.InSync);
 
                 if (settingsProvider != null)
                 {
-                    var additionalFilter = GetAdditionalFilterClause(settingsProvider);
-                    if (additionalFilter == null) return null;
-                    lastModifiedQuery.Append(additionalFilter);
-                }
-                    
-                lastModifiedQuery.Append(_lastModifiedQueryEnd);
+                    var modifiedQuery = ApplyAdditionalFilters(query, settingsProvider);
+                    if (modifiedQuery == null)
+                    {
+                        return null;
+                    }
 
-                return await SqliteDatabaseService.AsyncConnection.ExecuteScalarAsync<long>(lastModifiedQuery.ToString());
+                    query = modifiedQuery;
+                }
+
+                query = query.OrderByDescending(x => x.ModifiedAtTicks)
+                    .Take(1);
+
+                var entity = await query.FirstOrDefaultAsync();
+
+                return entity?.ModifiedAtTicks ?? 0; 
             });
         }
         
-        protected virtual string? GetAdditionalFilterClause(IKeyValueProvider settingsProvider)
+        protected virtual AsyncTableQuery<TEntity>? ApplyAdditionalFilters(AsyncTableQuery<TEntity> query, IKeyValueProvider settingsProvider)
         {
-            return string.Empty;
+            return query;
         }
 
         public Task SaveSyncedDtosAsync(DtoBatch<TDto, TId> dtoBatch)

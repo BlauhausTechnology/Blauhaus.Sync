@@ -5,6 +5,7 @@ using Blauhaus.ClientDatabase.Sqlite.Service;
 using Blauhaus.Common.Abstractions;
 using Blauhaus.Sync.Client.Sqlite;
 using Blauhaus.Sync.Tests.TestObjects;
+using SQLite;
 
 namespace Blauhaus.Sync.Tests.Client.SyncDtoCacheTests.Base
 {
@@ -21,11 +22,11 @@ namespace Blauhaus.Sync.Tests.Client.SyncDtoCacheTests.Base
             return entity;
         }
 
-        protected override string? GetAdditionalFilterClause(IKeyValueProvider settingsProvider)
+        protected override AsyncTableQuery<MySyncedDtoEntity>? ApplyAdditionalFilters(AsyncTableQuery<MySyncedDtoEntity> query, IKeyValueProvider settingsProvider)
         {
-            return AdditionalFilterClause;
+            return ApplyAdditionalFilter ? query.Where(x => x.Name.Contains("Bill")) : base.ApplyAdditionalFilters(query, settingsProvider);
         }
-
-        public string? AdditionalFilterClause { get; set; } = string.Empty;
+         
+        public bool ApplyAdditionalFilter { get; set; } 
     }
 }

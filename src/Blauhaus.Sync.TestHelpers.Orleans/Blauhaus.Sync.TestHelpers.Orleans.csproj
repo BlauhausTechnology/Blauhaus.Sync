@@ -7,6 +7,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Blauhaus.Orleans.TestHelpers" Version="0.6.13" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\Blauhaus.Sync.TestHelpers.EfCore\Blauhaus.Sync.TestHelpers.EfCore.csproj" />
   </ItemGroup>
 

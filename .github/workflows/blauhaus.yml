@@ -27,8 +27,8 @@ jobs:
         dotnet pack ./src/Blauhaus.Sync.TestHelpers/Blauhaus.Sync.TestHelpers.csproj -p:PackageVersion=${VERSION_NAME} --no-build --output ./ --configuration Release 
         dotnet pack ./src/Blauhaus.Sync.Client.SignalR/Blauhaus.Sync.Client.SignalR.csproj -p:PackageVersion=${VERSION_NAME} --no-build --output ./ --configuration Release 
         dotnet pack ./src/Blauhaus.Sync.Server.EfCore/Blauhaus.Sync.Server.EfCore.csproj -p:PackageVersion=${VERSION_NAME} --no-build --output ./ --configuration Release 
-        dotnet pack ./src/Blauhaus.Sync.Server.Orleans/Blauhaus.Sync.TestHelpers.Orleans.csproj -p:PackageVersion=${VERSION_NAME} --no-build --output ./ --configuration Release 
-        dotnet pack ./src/Blauhaus.Sync.Server.Orleans/Blauhaus.Sync.TestHelpers.EfCore.csproj -p:PackageVersion=${VERSION_NAME} --no-build --output ./ --configuration Release 
+        dotnet pack ./src/Blauhaus.Sync.TestHelpers.Orleans/Blauhaus.Sync.TestHelpers.Orleans.csproj -p:PackageVersion=${VERSION_NAME} --no-build --output ./ --configuration Release 
+        dotnet pack ./src/Blauhaus.Sync.TestHelpers.EfCore/Blauhaus.Sync.TestHelpers.EfCore.csproj -p:PackageVersion=${VERSION_NAME} --no-build --output ./ --configuration Release 
      - name: Deploy NuGet Package
        run:  |
         dotnet nuget push /home/runner/work/Blauhaus.Sync/Blauhaus.Sync/Blauhaus.Sync.Abstractions.${VERSION_NAME}.nupkg -k ${{ secrets.NUGET_API_KEY }} -s https://api.nuget.org/v3/index.json

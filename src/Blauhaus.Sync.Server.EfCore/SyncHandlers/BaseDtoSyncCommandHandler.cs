@@ -18,6 +18,7 @@ namespace Blauhaus.Sync.Server.EfCore.SyncHandlers
         where TDto : IClientEntity<TId> where TId : IEquatable<TId>
         where TEntity: class, IServerEntity, IDtoOwner<TDto>
         where TDbContext : DbContext
+        
     {
         protected readonly IAnalyticsService AnalyticsService;
         protected readonly ITimeService TimeService;

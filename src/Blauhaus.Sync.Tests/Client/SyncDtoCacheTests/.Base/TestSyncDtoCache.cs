@@ -4,6 +4,7 @@ using Blauhaus.Analytics.Abstractions.Service;
 using Blauhaus.ClientDatabase.Sqlite.Service;
 using Blauhaus.Common.Abstractions;
 using Blauhaus.Sync.Client.Sqlite;
+using Blauhaus.Sync.Client.Sqlite.DtoCaches;
 using Blauhaus.Sync.Tests.TestObjects;
 using SQLite;
 

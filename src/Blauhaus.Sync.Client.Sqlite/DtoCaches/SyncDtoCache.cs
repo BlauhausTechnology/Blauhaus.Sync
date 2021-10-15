@@ -2,33 +2,29 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
-using System.Text;
 using System.Threading.Tasks;
 using Blauhaus.Analytics.Abstractions.Service;
 using Blauhaus.ClientActors.Actors;
 using Blauhaus.ClientDatabase.Sqlite.Service;
 using Blauhaus.Common.Abstractions;
-using Blauhaus.Domain.Abstractions.DtoCaches;
 using Blauhaus.Domain.Abstractions.Entities;
 using Blauhaus.Domain.Abstractions.Errors;
 using Blauhaus.Errors;
 using Blauhaus.Sync.Abstractions.Client;
 using Blauhaus.Sync.Abstractions.Common;
+using Blauhaus.Sync.Client.Sqlite.Entities;
 using Newtonsoft.Json;
 using SQLite;
 
-namespace Blauhaus.Sync.Client.Sqlite
+namespace Blauhaus.Sync.Client.Sqlite.DtoCaches
 {
     public class SyncDtoCache<TDto, TEntity, TId> : BaseActor, ISyncDtoCache<TDto, TId> 
         where TDto : class, IClientEntity<TId>
-        where TEntity : SyncClientEntity<TId>, new()
+        where TEntity : BaseSyncClientEntity<TId>, new()
         where TId : IEquatable<TId>
     {
         protected readonly IAnalyticsService AnalyticsService;
         protected readonly ISqliteDatabaseService SqliteDatabaseService;
-
-        private readonly string _lastModifiedQueryStart;
-        private readonly string _lastModifiedQueryEnd;
 
         public SyncDtoCache(
             IAnalyticsService analyticsService,
@@ -36,13 +32,6 @@ namespace Blauhaus.Sync.Client.Sqlite
         {
             AnalyticsService = analyticsService;
             SqliteDatabaseService = sqliteDatabaseService;
-
-            _lastModifiedQueryStart = "SELECT ModifiedAtTicks " +
-                                 $"FROM {typeof(TEntity).Name} " +
-                                 $"WHERE SyncState == {(int)SyncState.InSync} ";
-
-            _lastModifiedQueryEnd = $"ORDER BY ModifiedAtTicks DESC LIMIT 1";
-
         }
 
         public Task<IDisposable> SubscribeAsync(Func<TDto, Task> handler, Func<TDto, bool>? filter = null)
@@ -160,6 +149,8 @@ namespace Blauhaus.Sync.Client.Sqlite
             });
         }
 
+
+
         protected async Task<IReadOnlyList<TDto>> LoadManyAsync(Expression<Func<TEntity, bool>>? search = null)
         {
             var entities = search == null 
@@ -184,7 +175,6 @@ namespace Blauhaus.Sync.Client.Sqlite
             return entities.Select(x => x.Id).ToArray();
         }
         
-
         protected async Task<TDto?> LoadOneAsync(TId id)
         {
             var entity = await SqliteDatabaseService.AsyncConnection.Table<TEntity>().FirstOrDefaultAsync(x => x.Id.Equals(id));

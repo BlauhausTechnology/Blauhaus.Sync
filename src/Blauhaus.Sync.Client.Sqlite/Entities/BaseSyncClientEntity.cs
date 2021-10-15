@@ -3,9 +3,9 @@ using Blauhaus.Sync.Abstractions.Client;
 using Blauhaus.Sync.Abstractions.Common;
 using SQLite;
 
-namespace Blauhaus.Sync.Client.Sqlite
+namespace Blauhaus.Sync.Client.Sqlite.Entities
 {
-    public abstract class SyncClientEntity<TId> : ClientEntity<TId>, ISyncClientEntity<TId>, ISerializedDto
+    public abstract class BaseSyncClientEntity<TId> : ClientEntity<TId>, ISyncClientEntity<TId>, ISerializedDto
     {
         [Indexed]
         public SyncState SyncState { get; set; }

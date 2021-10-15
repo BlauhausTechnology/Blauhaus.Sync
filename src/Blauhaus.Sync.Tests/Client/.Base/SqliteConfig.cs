@@ -9,30 +9,12 @@ using SQLite;
 using System.Collections.Generic;
 using System;
 using System.Threading.Tasks;
+using Blauhaus.Sync.TestHelpers.Sqlite;
 using Blauhaus.Sync.Tests.TestObjects;
+using Blauhaus.Sync.Tests.TestObjects.User;
 
 namespace Blauhaus.Sync.Tests.Client.Base
-{
-    public abstract class BaseSqliteTest<TSut> : BaseClientSyncTest<TSut> where TSut : class
-    {
-        protected ISqliteDatabaseService SqliteDatabaseService = null!;
-        protected SQLiteAsyncConnection Connection = null!;
-
-        public override void Setup()
-        {
-            base.Setup();
-
-            SqliteDatabaseService = new SqliteInMemoryDatabase(new SqliteConfig(MockDeviceInfoService.Object));
-            Task.Run(async () => await SqliteDatabaseService.DeleteDataAsync()).Wait();
-            Connection = SqliteDatabaseService.AsyncConnection;
-
-            AddService(SqliteDatabaseService);
-        }
-
-        protected DeviceInfoServiceMockBuilder MockDeviceInfoService => AddMock<DeviceInfoServiceMockBuilder, IDeviceInfoService>().Invoke();
-    }
-
-
+{ 
     public class SqliteConfig : BaseSqliteConfig
     {
         public SqliteConfig(IDeviceInfoService deviceInfoService) : base(deviceInfoService, "Test")
@@ -40,6 +22,7 @@ namespace Blauhaus.Sync.Tests.Client.Base
             TableTypes = new List<Type>
             {
                 typeof(MySyncedDtoEntity),
+                typeof(MySyncedUserDtoEntity),
 
             };
         }

@@ -2,12 +2,13 @@
 using Blauhaus.Domain.Abstractions.Entities;
 using Blauhaus.Sync.Abstractions.Common;
 using Blauhaus.Sync.Client.Sqlite;
+using Blauhaus.Sync.Client.Sqlite.Entities;
 using Newtonsoft.Json;
 using SQLite;
 
 namespace Blauhaus.Sync.Tests.TestObjects
 {
-    public class MySyncedDtoEntity : SyncClientEntity<Guid>
+    public class MySyncedDtoEntity : BaseSyncClientEntity<Guid>
     {
 
         public MySyncedDtoEntity()

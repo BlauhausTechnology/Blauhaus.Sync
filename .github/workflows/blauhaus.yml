@@ -29,6 +29,7 @@ jobs:
         dotnet pack ./src/Blauhaus.Sync.Server.EfCore/Blauhaus.Sync.Server.EfCore.csproj -p:PackageVersion=${VERSION_NAME} --no-build --output ./ --configuration Release 
         dotnet pack ./src/Blauhaus.Sync.TestHelpers.Orleans/Blauhaus.Sync.TestHelpers.Orleans.csproj -p:PackageVersion=${VERSION_NAME} --no-build --output ./ --configuration Release 
         dotnet pack ./src/Blauhaus.Sync.TestHelpers.EfCore/Blauhaus.Sync.TestHelpers.EfCore.csproj -p:PackageVersion=${VERSION_NAME} --no-build --output ./ --configuration Release 
+        dotnet pack ./src/Blauhaus.Sync.TestHelpers.Sqlite/Blauhaus.Sync.TestHelpers.Sqlite.csproj -p:PackageVersion=${VERSION_NAME} --no-build --output ./ --configuration Release 
      - name: Deploy NuGet Package
        run:  |
         dotnet nuget push /home/runner/work/Blauhaus.Sync/Blauhaus.Sync/Blauhaus.Sync.Abstractions.${VERSION_NAME}.nupkg -k ${{ secrets.NUGET_API_KEY }} -s https://api.nuget.org/v3/index.json
@@ -39,3 +40,4 @@ jobs:
         dotnet nuget push /home/runner/work/Blauhaus.Sync/Blauhaus.Sync/Blauhaus.Sync.Server.EfCore.${VERSION_NAME}.nupkg -k ${{ secrets.NUGET_API_KEY }} -s https://api.nuget.org/v3/index.json
         dotnet nuget push /home/runner/work/Blauhaus.Sync/Blauhaus.Sync/Blauhaus.Sync.TestHelpers.Orleans.${VERSION_NAME}.nupkg -k ${{ secrets.NUGET_API_KEY }} -s https://api.nuget.org/v3/index.json
         dotnet nuget push /home/runner/work/Blauhaus.Sync/Blauhaus.Sync/Blauhaus.Sync.TestHelpers.EfCore.${VERSION_NAME}.nupkg -k ${{ secrets.NUGET_API_KEY }} -s https://api.nuget.org/v3/index.json
+        dotnet nuget push /home/runner/work/Blauhaus.Sync/Blauhaus.Sync/Blauhaus.Sync.TestHelpers.Sqlite.${VERSION_NAME}.nupkg -k ${{ secrets.NUGET_API_KEY }} -s https://api.nuget.org/v3/index.json

@@ -6,8 +6,13 @@
 	  <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Compile Include=".Ioc\ServiceCollectionExtensions.cs" />
+  </ItemGroup>
+
 	<ItemGroup>
 		<ProjectReference Include="..\Blauhaus.Sync.Abstractions\Blauhaus.Sync.Abstractions.csproj" />
+		<ProjectReference Include="..\Blauhaus.Sync.Client\Blauhaus.Sync.Client.csproj" />
 	</ItemGroup>
 
 	<ItemGroup>

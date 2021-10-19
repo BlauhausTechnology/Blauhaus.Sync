@@ -41,10 +41,9 @@ namespace Blauhaus.Sync.TestHelpers.Orleans
                 AddEntityBuilder(baseServerEntityBuilder);
             }
         }
-
         
         [Test]
-        public async Task WHEN_IsFirstSync_SyncAllAsync_SHOULD_return_all_Active()
+        public async Task WHEN_IsFirstSync_SyncAllAsync_SHOULD_return_all_Active_and_archived()
         { 
             //Arrange
             await Sut.SetBatchSizeAsync(1);
@@ -55,8 +54,8 @@ namespace Blauhaus.Sync.TestHelpers.Orleans
             //Assert
             Assert.That(result.Dtos.Count, Is.EqualTo(4));
             Assert.That(result.DtoBatches.Count, Is.EqualTo(4));
-            Assert.That(result.Dtos.All(x => x.EntityState == EntityState.Active), Is.True);
-            Assert.That(result.Dtos[0].ModifiedAtTicks, Is.EqualTo(EntitySet.DistantPastTime.Ticks));
+            Assert.That(result.Dtos.All(x => x.EntityState == EntityState.Active || x.EntityState == EntityState.Draft), Is.True);
+            Assert.That(result.Dtos[0].ModifiedAtTicks, Is.EqualTo(EntitySet.DistantPastArchivedTime.Ticks));
             Assert.That(result.Dtos[1].ModifiedAtTicks, Is.EqualTo(EntitySet.PastTime.Ticks));
             Assert.That(result.Dtos[2].ModifiedAtTicks, Is.EqualTo(EntitySet.PresentTime.Ticks));
             Assert.That(result.Dtos[3].ModifiedAtTicks, Is.EqualTo(EntitySet.FutureTime.Ticks));
@@ -106,7 +105,7 @@ namespace Blauhaus.Sync.TestHelpers.Orleans
             Assert.That(result.Dtos.Count, Is.EqualTo(4));
             Assert.That(result.DtoBatches.Count, Is.EqualTo(2));
             Assert.That(result.Dtos.All(x => x.EntityState == EntityState.Active), Is.True);
-            Assert.That(result.Dtos[0].ModifiedAtTicks, Is.EqualTo(EntitySet.DistantPastTime.Ticks));
+            Assert.That(result.Dtos[0].ModifiedAtTicks, Is.EqualTo(EntitySet.DistantPastArchivedTime.Ticks));
             Assert.That(result.Dtos[1].ModifiedAtTicks, Is.EqualTo(EntitySet.PastTime.Ticks));
             Assert.That(result.Dtos[2].ModifiedAtTicks, Is.EqualTo(EntitySet.PresentTime.Ticks));
             Assert.That(result.Dtos[3].ModifiedAtTicks, Is.EqualTo(EntitySet.FutureTime.Ticks));

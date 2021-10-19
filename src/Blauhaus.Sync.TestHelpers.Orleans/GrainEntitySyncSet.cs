@@ -25,12 +25,12 @@ namespace Blauhaus.Sync.TestHelpers.Orleans
                 : base(runTime)
         {
             DistantPastDtoBuilder = new TDtoBuilder()
-                .With(x => x.Id, DistantPastId)
-                .With(x => x.ModifiedAtTicks, DistantPastTime.Ticks);
+                .With(x => x.Id, DistantPastArchivedId)
+                .With(x => x.ModifiedAtTicks, DistantPastArchivedTime.Ticks);
             MockDistantPastGrain = new Mock<TGrain>();
             MockDistantPastGrain.Setup(x => x.GetDtoAsync())
                 .ReturnsAsync(() => DistantPastDtoBuilder.Object);
-            grainResolverMockBuilder.Setup(x => x.Resolve<TGrain>(DistantPastId))
+            grainResolverMockBuilder.Setup(x => x.Resolve<TGrain>(DistantPastArchivedId))
                 .Returns(MockDistantPastGrain.Object);
             
             PastDtoBuilder = new TDtoBuilder()

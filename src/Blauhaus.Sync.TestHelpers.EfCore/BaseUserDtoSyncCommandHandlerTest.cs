@@ -36,14 +36,14 @@ namespace Blauhaus.Sync.TestHelpers.EfCore
         public async Task SHOULD_exclude_entities_belonging_to_different_user()
         {
             //Arrange
-            EntitySet.DistantPastEntityBuilder.With(x => x.UserId, Guid.NewGuid);
+            EntitySet.DistantPastArchivedEntityBuilder.With(x => x.UserId, Guid.NewGuid);
 
             //Act
             var result = await SyncAllAsync(0, User, Sut);
 
             //Assert
             Assert.That(result.Dtos.Count, Is.EqualTo(3));
-            Assert.That(result.Dtos.FirstOrDefault(x => x.Id.Equals(EntitySet.DistantPastId)), Is.Null);
+            Assert.That(result.Dtos.FirstOrDefault(x => x.Id.Equals(EntitySet.DistantPastArchivedId)), Is.Null);
         }
     }
 }

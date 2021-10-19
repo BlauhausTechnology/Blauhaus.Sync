@@ -12,11 +12,11 @@ namespace Blauhaus.Sync.TestHelpers.EfCore
 
         public EntitySyncSet(DateTime runTime)
         {
-            DistantPastId = Guid.NewGuid();
-            DistantPastTime = runTime.AddMinutes(-20);
-            DistantPastEntityBuilder = ((TEntityBuilder)Activator.CreateInstance(typeof(TEntityBuilder), DistantPastTime)!)
-                .With(x => x.Id, DistantPastId)
-                .With(x => x.EntityState, EntityState.Active);
+            DistantPastArchivedId = Guid.NewGuid();
+            DistantPastArchivedTime = runTime.AddMinutes(-20);
+            DistantPastArchivedEntityBuilder = ((TEntityBuilder)Activator.CreateInstance(typeof(TEntityBuilder), DistantPastArchivedTime)!)
+                .With(x => x.Id, DistantPastArchivedId)
+                .With(x => x.EntityState, EntityState.Archived);
 
             PastId = Guid.NewGuid();
             PastTime = runTime.AddMinutes(-10);
@@ -44,7 +44,7 @@ namespace Blauhaus.Sync.TestHelpers.EfCore
 
             Builders = new[]
             {
-                DistantPastEntityBuilder,
+                DistantPastArchivedEntityBuilder,
                 PastEntityBuilder, 
                 PresentEntityBuilder, 
                 FutureEntityBuilder,
@@ -54,9 +54,9 @@ namespace Blauhaus.Sync.TestHelpers.EfCore
 
         public TEntityBuilder[] Builders { get; }
 
-        public Guid DistantPastId { get; }
-        public DateTime DistantPastTime { get; }
-        public TEntityBuilder DistantPastEntityBuilder { get; }
+        public Guid DistantPastArchivedId { get; }
+        public DateTime DistantPastArchivedTime { get; }
+        public TEntityBuilder DistantPastArchivedEntityBuilder { get; }
         
         public Guid PastId { get; }
         public DateTime PastTime { get; }

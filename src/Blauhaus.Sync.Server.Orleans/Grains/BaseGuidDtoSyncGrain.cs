@@ -59,7 +59,7 @@ namespace Blauhaus.Sync.Server.Orleans.Grains
                 AllDtos[entity.Id] =await entity.GetDtoAsync();
             }
         }
-
+        
         public Task<Response<DtoBatch<TDto, Guid>>> HandleAsync(DtoSyncCommand command, IConnectedUser user)
         {
             var modifiedAfter = command.ModifiedAfterTicks;
@@ -72,12 +72,12 @@ namespace Blauhaus.Sync.Server.Orleans.Grains
                 {
                     filter = dto =>
                         dto.ModifiedAtTicks > modifiedAfter &&
-                        dto.EntityState == EntityState.Active;
+                        dto.EntityState is EntityState.Active or EntityState.Archived;
                 }
                 else
                 {
                     filter = dto =>
-                        dto.EntityState == EntityState.Active;
+                        dto.EntityState is EntityState.Active or EntityState.Archived;
                 }
             }
             else
@@ -85,6 +85,7 @@ namespace Blauhaus.Sync.Server.Orleans.Grains
                 filter = dto => dto.ModifiedAtTicks > modifiedAfter;
             } 
 
+            //todo
             //there is a problem when 2 entities have exactly the same modified and the first is the last one in a batch
             //the next batch will ask for modified after the previous one so entity 2 is exclude. Unlikely to happen but could be nasty
             //possible solutions - add any entities with exactly the same modified as the last one in the set?

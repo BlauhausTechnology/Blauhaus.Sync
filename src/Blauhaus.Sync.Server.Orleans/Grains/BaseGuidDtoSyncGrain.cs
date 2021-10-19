@@ -125,33 +125,23 @@ namespace Blauhaus.Sync.Server.Orleans.Grains
         }
 
 
-        public async Task ConnectUserAsync(IConnectedUser user)
+        public Task ConnectUserAsync(IConnectedUser user)
         {
             if (!UserConnections.TryGetValue(user.UniqueId, out _))
             {
                 UserConnections[user.UniqueId] = user;
-                await HandleConnectedUserAsync(user);
             }
+            return Task.CompletedTask;
         }
         
-        public async Task DisconnectUserAsync(IConnectedUser user)
+        public Task DisconnectUserAsync(IConnectedUser user)
         {
             if (UserConnections.TryGetValue(user.UniqueId, out _))
             {
                 UserConnections.Remove(user.UniqueId);
-                await HandleDisconnectedUserAsync(user);
             }
-        }
-        
-            
-        protected virtual Task HandleConnectedUserAsync(IConnectedUser user)
-        {
             return Task.CompletedTask;
         }
-        
-        protected virtual Task HandleDisconnectedUserAsync(IConnectedUser user)
-        {
-            return Task.CompletedTask;
-        }
+         
     }
 }

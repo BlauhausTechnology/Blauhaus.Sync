@@ -11,6 +11,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Blauhaus.Sync.Server.Orleans\Blauhaus.Sync.Server.Orleans.csproj" />
     <ProjectReference Include="..\Blauhaus.Sync.TestHelpers.EfCore\Blauhaus.Sync.TestHelpers.EfCore.csproj" />
   </ItemGroup>
 

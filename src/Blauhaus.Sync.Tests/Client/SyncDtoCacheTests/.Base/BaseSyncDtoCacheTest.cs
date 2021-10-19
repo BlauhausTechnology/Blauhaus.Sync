@@ -3,6 +3,7 @@ using Blauhaus.Common.Abstractions;
 using Blauhaus.Sync.TestHelpers.Sqlite;
 using Blauhaus.Sync.TestHelpers.Sqlite.Tests.BaseTests;
 using Blauhaus.Sync.Tests.Client.Base;
+using Blauhaus.Sync.Tests.Client.TestObjects;
 using Blauhaus.Sync.Tests.TestObjects;
 using Blauhaus.TestHelpers.MockBuilders;
 

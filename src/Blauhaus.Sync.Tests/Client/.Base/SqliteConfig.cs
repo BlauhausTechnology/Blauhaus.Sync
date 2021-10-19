@@ -10,6 +10,7 @@ using System.Collections.Generic;
 using System;
 using System.Threading.Tasks;
 using Blauhaus.Sync.TestHelpers.Sqlite;
+using Blauhaus.Sync.Tests.Client.TestObjects;
 using Blauhaus.Sync.Tests.TestObjects;
 using Blauhaus.Sync.Tests.TestObjects.User;
 

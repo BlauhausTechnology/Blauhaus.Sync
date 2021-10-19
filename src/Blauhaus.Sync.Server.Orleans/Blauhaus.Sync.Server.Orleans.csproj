@@ -1,15 +1,16 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Blauhaus.Orleans.EfCore" Version="0.6.13" />
+    <PackageReference Include="Blauhaus.Orleans" Version="0.6.16" />
+    <PackageReference Include="Blauhaus.Orleans.EfCore" Version="0.6.16" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Blauhaus.Sync.Server.EfCore\Blauhaus.Sync.Server.EfCore.csproj" />
+    <ProjectReference Include="..\Blauhaus.Sync.Abstractions\Blauhaus.Sync.Abstractions.csproj" />
   </ItemGroup>
 
 </Project>

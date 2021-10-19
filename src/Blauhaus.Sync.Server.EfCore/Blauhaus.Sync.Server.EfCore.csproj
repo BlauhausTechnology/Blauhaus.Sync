@@ -9,7 +9,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Blauhaus.Domain.Server.EFCore" Version="1.5.10" />
+    <PackageReference Include="Blauhaus.Domain.Server.EFCore" Version="1.5.12" />
   </ItemGroup>
 
   <ItemGroup>

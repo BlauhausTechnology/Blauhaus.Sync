@@ -26,7 +26,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Blauhaus.Sync.TestHelpers.O
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Blauhaus.Sync.TestHelpers.EfCore", "Blauhaus.Sync.TestHelpers.EfCore\Blauhaus.Sync.TestHelpers.EfCore.csproj", "{187486F3-5A3F-4B86-9FE1-D415EBCCF345}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Blauhaus.Sync.TestHelpers.Sqlite", "Blauhaus.Sync.TestHelpers.Sqlite\Blauhaus.Sync.TestHelpers.Sqlite.csproj", "{429E6227-4427-447C-99AD-A786206918AB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Blauhaus.Sync.TestHelpers.Sqlite", "Blauhaus.Sync.TestHelpers.Sqlite\Blauhaus.Sync.TestHelpers.Sqlite.csproj", "{429E6227-4427-447C-99AD-A786206918AB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Blauhaus.Sync.Server.Orleans", "Blauhaus.Sync.Server.Orleans\Blauhaus.Sync.Server.Orleans.csproj", "{41534D03-1B5C-497B-996E-8B9F9AE8DA52}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -74,6 +76,10 @@ Global
 		{429E6227-4427-447C-99AD-A786206918AB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{429E6227-4427-447C-99AD-A786206918AB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{429E6227-4427-447C-99AD-A786206918AB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{41534D03-1B5C-497B-996E-8B9F9AE8DA52}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{41534D03-1B5C-497B-996E-8B9F9AE8DA52}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{41534D03-1B5C-497B-996E-8B9F9AE8DA52}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{41534D03-1B5C-497B-996E-8B9F9AE8DA52}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-	  <TargetFrameworks>netstandard2.0;net6.0</TargetFrameworks>
+	  <TargetFramework>netstandard2.0</TargetFramework>
 	  <LangVersion>9</LangVersion>
 	  <Nullable>enable</Nullable>
   </PropertyGroup>
@@ -16,9 +16,9 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<PackageReference Include="Blauhaus.ClientActors" Version="0.9.4" />
-		<PackageReference Include="Blauhaus.ClientDatabase.Sqlite" Version="0.7.9" />
-		<PackageReference Include="Blauhaus.Domain.Client.Sqlite" Version="1.5.10" />
+		<PackageReference Include="Blauhaus.ClientActors" Version="0.9.6" />
+		<PackageReference Include="Blauhaus.ClientDatabase.Sqlite" Version="0.7.11" />
+		<PackageReference Include="Blauhaus.Domain.Client.Sqlite" Version="1.5.12" />
 	</ItemGroup>
 
 </Project>

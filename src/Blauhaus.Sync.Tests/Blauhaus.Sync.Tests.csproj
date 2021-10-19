@@ -2,13 +2,19 @@
 
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
-	  <LangVersion>8</LangVersion>
+	  <LangVersion>9</LangVersion>
 	  <Nullable>enable</Nullable>
 
     <IsPackable>false</IsPackable>
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Include=".TestObjects\MyDto.cs" />
+    <Compile Include=".TestObjects\MyDtoBuilder.cs" />
+    <Compile Include="Client\.TestObjects\MySyncedDtoEntity.cs" />
+    <Compile Include="Client\.TestObjects\MySyncedUserDtoEntity.cs" />
+    <Compile Include=".TestObjects\MyUserDto.cs" />
+    <Compile Include=".TestObjects\MyUserDtoBuilder.cs" />
     <Compile Include="Client\.Base\BaseClientSyncTest.cs" />
     <Compile Include="Client\.Base\SqliteConfig.cs" />
     <Compile Include="Client\DtoSyncClientTests\.Base\BaseDtoSyncClientTest.cs" />
@@ -19,6 +25,8 @@
     <Compile Include="Client\SyncDtoCacheTests\.Base\BaseSyncDtoCacheTest.cs" />
     <Compile Include="Client\SyncDtoCacheTests\.Base\TestSyncDtoCache.cs" />
     <Compile Include="Client\SyncManagerTests\.Base\BaseSyncManagerTest.cs" />
+    <Compile Include="Server\.TestObjects\MyDbContext.cs" />
+    <Compile Include="Server\.TestObjects\MyServerEntity.cs" />
   </ItemGroup>
 
   <ItemGroup>
@@ -34,6 +42,8 @@
   <ItemGroup>
     <ProjectReference Include="..\Blauhaus.Sync.Client.Sqlite\Blauhaus.Sync.Client.Sqlite.csproj" />
     <ProjectReference Include="..\Blauhaus.Sync.Client\Blauhaus.Sync.Client.csproj" />
+    <ProjectReference Include="..\Blauhaus.Sync.Server.Orleans\Blauhaus.Sync.Server.Orleans.csproj" />
+    <ProjectReference Include="..\Blauhaus.Sync.TestHelpers.Orleans\Blauhaus.Sync.TestHelpers.Orleans.csproj" />
     <ProjectReference Include="..\Blauhaus.Sync.TestHelpers.Sqlite\Blauhaus.Sync.TestHelpers.Sqlite.csproj" />
     <ProjectReference Include="..\Blauhaus.Sync.TestHelpers\Blauhaus.Sync.TestHelpers.csproj" />
   </ItemGroup>

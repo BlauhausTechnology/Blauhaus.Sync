@@ -21,7 +21,7 @@ namespace Blauhaus.Sync.TestHelpers.Orleans
 {
     public abstract class BaseGuidDtoSyncGrainTests<TSut, TDbContext, TEntity, TEntityBuilder, TDto, TDtoBuilder, TGrainResolver> : BaseDbGrainTest<TSut, TDbContext, Guid, TGrainResolver>
         where TDbContext : DbContext
-        where TSut : BaseGuiDtoSyncGrain<TDbContext, TDto, TEntity, TGrainResolver>
+        where TSut : BaseGuidDtoSyncGrain<TDbContext, TDto, TEntity, TGrainResolver>
         where TGrainResolver : IGrainResolver
         where TDto : IClientEntity<Guid>
         where TEntity : BaseServerEntity, IDtoOwner<TDto>

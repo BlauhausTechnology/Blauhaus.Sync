@@ -115,13 +115,16 @@ namespace Blauhaus.Sync.Server.Orleans.Grains
         
         public Task UpdateDtoAsync(TDto dto)
         {
-            //todo update connected users
             AllDtos[dto.Id] = dto;
+            return UpdateConnectedUsersAsync(dto);
+        }
+
+        protected virtual Task UpdateConnectedUsersAsync(TDto dto)
+        {
             return Task.CompletedTask;
         }
 
 
-        
         public async Task ConnectUserAsync(IConnectedUser user)
         {
             if (!UserConnections.TryGetValue(user.UniqueId, out _))

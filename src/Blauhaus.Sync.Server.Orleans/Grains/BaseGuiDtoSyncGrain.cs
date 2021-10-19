@@ -20,7 +20,7 @@ using EntityState = Blauhaus.Domain.Abstractions.Entities.EntityState;
 
 namespace Blauhaus.Sync.Server.Orleans.Grains
 {
-    public abstract class BaseDtoSyncGrain<TDbContext, TDto, TEntity, TGrainResolver> : BaseDbGrain<TDbContext, TGrainResolver>, IDtoSyncGrain<TDto>
+    public abstract class BaseGuiDtoSyncGrain<TDbContext, TDto, TEntity, TGrainResolver> : BaseDbGrain<TDbContext, TGrainResolver>, IDtoSyncGrain<TDto>
         where TDbContext : DbContext
         where TDto : IClientEntity<Guid>  
         where TGrainResolver : IGrainResolver
@@ -31,7 +31,7 @@ namespace Blauhaus.Sync.Server.Orleans.Grains
         protected int BatchSize = 50;
         protected Dictionary<Guid, TDto> AllDtos = new();
 
-        protected BaseDtoSyncGrain(
+        protected BaseGuiDtoSyncGrain(
             Func<TDbContext> dbContextFactory, 
             IAnalyticsService analyticsService, 
             ITimeService timeService,

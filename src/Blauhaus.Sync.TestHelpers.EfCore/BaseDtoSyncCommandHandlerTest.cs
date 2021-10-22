@@ -93,7 +93,7 @@ namespace Blauhaus.Sync.TestHelpers.EfCore
             //Assert
             Assert.That(result.Dtos.Count, Is.EqualTo(4));
             Assert.That(result.DtoBatches.Count, Is.EqualTo(4));
-            Assert.That(result.Dtos.All(x => x.EntityState == EntityState.Active), Is.True);
+            Assert.That(result.Dtos.All(x => x.EntityState is EntityState.Active or EntityState.Archived), Is.True);
             Assert.That(result.Dtos[0].ModifiedAtTicks, Is.EqualTo(EntitySet.DistantPastArchivedTime.Ticks));
             Assert.That(result.Dtos[1].ModifiedAtTicks, Is.EqualTo(EntitySet.PastTime.Ticks));
             Assert.That(result.Dtos[2].ModifiedAtTicks, Is.EqualTo(EntitySet.PresentTime.Ticks));
@@ -144,8 +144,7 @@ namespace Blauhaus.Sync.TestHelpers.EfCore
 
             //Assert
             Assert.That(result.Dtos.Count, Is.EqualTo(4));
-            Assert.That(result.DtoBatches.Count, Is.EqualTo(2));
-            Assert.That(result.Dtos.All(x => x.EntityState == EntityState.Active), Is.True);
+            Assert.That(result.DtoBatches.Count, Is.EqualTo(2)); 
             Assert.That(result.Dtos[0].ModifiedAtTicks, Is.EqualTo(EntitySet.DistantPastArchivedTime.Ticks));
             Assert.That(result.Dtos[1].ModifiedAtTicks, Is.EqualTo(EntitySet.PastTime.Ticks));
             Assert.That(result.Dtos[2].ModifiedAtTicks, Is.EqualTo(EntitySet.PresentTime.Ticks));

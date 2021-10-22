@@ -50,7 +50,7 @@ namespace Blauhaus.Sync.Server.EfCore.SyncHandlers
                 {
                     filter = entity =>
                         entity.ModifiedAt > modifiedAfter &&
-                        entity.EntityState == EntityState.Active || entity.EntityState == EntityState.Archived;
+                        (entity.EntityState == EntityState.Active || entity.EntityState == EntityState.Archived);
                 }
                 else
                 {

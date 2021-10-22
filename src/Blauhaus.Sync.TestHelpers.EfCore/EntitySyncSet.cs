@@ -27,7 +27,7 @@ namespace Blauhaus.Sync.TestHelpers.EfCore
             PastDraftId = Guid.NewGuid();
             PastDraftTime = runTime.AddMinutes(-10);
             PastDraftEntityBuilder = ((TEntityBuilder)Activator.CreateInstance(typeof(TEntityBuilder), PastDraftTime)!)
-                .With(x => x.Id, PastId)
+                .With(x => x.Id, PastDraftId)
                 .With(x => x.EntityState, EntityState.Draft);
             
             PresentId = Guid.NewGuid();

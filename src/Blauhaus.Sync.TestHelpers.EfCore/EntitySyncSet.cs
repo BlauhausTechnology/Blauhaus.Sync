@@ -24,6 +24,12 @@ namespace Blauhaus.Sync.TestHelpers.EfCore
                 .With(x => x.Id, PastId)
                 .With(x => x.EntityState, EntityState.Active);
             
+            PastDraftId = Guid.NewGuid();
+            PastDraftTime = runTime.AddMinutes(-10);
+            PastDraftEntityBuilder = ((TEntityBuilder)Activator.CreateInstance(typeof(TEntityBuilder), PastDraftTime)!)
+                .With(x => x.Id, PastId)
+                .With(x => x.EntityState, EntityState.Draft);
+            
             PresentId = Guid.NewGuid();
             PresentTime = runTime;
             PresentEntityBuilder = ((TEntityBuilder)Activator.CreateInstance(typeof(TEntityBuilder), PresentTime)!)
@@ -46,6 +52,7 @@ namespace Blauhaus.Sync.TestHelpers.EfCore
             {
                 DistantPastArchivedEntityBuilder,
                 PastEntityBuilder, 
+                PastDraftEntityBuilder,
                 PresentEntityBuilder, 
                 FutureEntityBuilder,
                 FutureDeletedEntityBuilder,
@@ -61,6 +68,10 @@ namespace Blauhaus.Sync.TestHelpers.EfCore
         public Guid PastId { get; }
         public DateTime PastTime { get; }
         public TEntityBuilder PastEntityBuilder { get; }
+
+        public Guid PastDraftId { get; }
+        public DateTime PastDraftTime { get; }
+        public TEntityBuilder PastDraftEntityBuilder { get; }
         
         public Guid PresentId { get; }
         public DateTime PresentTime { get; }

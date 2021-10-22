@@ -24,16 +24,18 @@ namespace Blauhaus.Sync.TestHelpers.Orleans
             Mock<TGrainResolver> grainResolverMockBuilder) 
                 : base(runTime)
         {
-            DistantPastDtoBuilder = new TDtoBuilder()
+            DistantPastDtoArchivedBuilder = new TDtoBuilder()
                 .With(x => x.Id, DistantPastArchivedId)
+                .With(x => x.EntityState, EntityState.Archived)
                 .With(x => x.ModifiedAtTicks, DistantPastArchivedTime.Ticks);
-            MockDistantPastGrain = new Mock<TGrain>();
-            MockDistantPastGrain.Setup(x => x.GetDtoAsync())
-                .ReturnsAsync(() => DistantPastDtoBuilder.Object);
+            MockDistantPastArchivedGrain = new Mock<TGrain>();
+            MockDistantPastArchivedGrain.Setup(x => x.GetDtoAsync())
+                .ReturnsAsync(() => DistantPastDtoArchivedBuilder.Object);
             grainResolverMockBuilder.Setup(x => x.Resolve<TGrain>(DistantPastArchivedId))
-                .Returns(MockDistantPastGrain.Object);
+                .Returns(MockDistantPastArchivedGrain.Object);
             
             PastDtoBuilder = new TDtoBuilder()
+                .With(x => x.EntityState, EntityState.Active)
                 .With(x => x.Id, PastId)
                 .With(x => x.ModifiedAtTicks, PastTime.Ticks);
             MockPastGrain = new Mock<TGrain>();
@@ -41,9 +43,20 @@ namespace Blauhaus.Sync.TestHelpers.Orleans
                 .ReturnsAsync(() => PastDtoBuilder.Object);
             grainResolverMockBuilder.Setup(x => x.Resolve<TGrain>(PastId))
                 .Returns(MockPastGrain.Object);
+
+            PastDraftDtoBuilder = new TDtoBuilder()
+                .With(x => x.Id, PastDraftId)
+                .With(x => x.EntityState, EntityState.Draft)
+                .With(x => x.ModifiedAtTicks, PastDraftTime.Ticks);
+            MockPastDraftGrain = new Mock<TGrain>();
+            MockPastDraftGrain.Setup(x => x.GetDtoAsync())
+                .ReturnsAsync(() => PastDraftDtoBuilder.Object);
+            grainResolverMockBuilder.Setup(x => x.Resolve<TGrain>(PastDraftId))
+                .Returns(MockPastDraftGrain.Object);
             
             PresentDtoBuilder = new TDtoBuilder()
                 .With(x => x.Id, PresentId)
+                .With(x => x.EntityState, EntityState.Active)
                 .With(x => x.ModifiedAtTicks, PresentTime.Ticks);
             MockPresentGrain = new Mock<TGrain>();
             MockPresentGrain.Setup(x => x.GetDtoAsync())
@@ -53,6 +66,7 @@ namespace Blauhaus.Sync.TestHelpers.Orleans
 
             FutureDtoBuilder = new TDtoBuilder()
                 .With(x => x.Id, FutureId)
+                .With(x => x.EntityState, EntityState.Active)
                 .With(x => x.ModifiedAtTicks, FutureTime.Ticks);
             MockFutureGrain = new Mock<TGrain>();
             MockFutureGrain.Setup(x => x.GetDtoAsync())
@@ -62,6 +76,7 @@ namespace Blauhaus.Sync.TestHelpers.Orleans
 
             FutureDeletedDtoBuilder = new TDtoBuilder()
                 .With(x => x.Id, FutureDeletedId)
+                .With(x => x.EntityState, EntityState.Deleted)
                 .With(x => x.ModifiedAtTicks, FutureDeletedTime.Ticks);
             MockFutureDeletedGrain = new Mock<TGrain>();
             MockFutureDeletedGrain.Setup(x => x.GetDtoAsync())
@@ -71,15 +86,17 @@ namespace Blauhaus.Sync.TestHelpers.Orleans
 
         }
 
-        public Mock<TGrain> MockDistantPastGrain { get; }
+        public Mock<TGrain> MockDistantPastArchivedGrain { get; }
+        public Mock<TGrain> MockPastDraftGrain { get; }
         public Mock<TGrain> MockPastGrain { get; }
         public Mock<TGrain> MockPresentGrain { get; }
         public Mock<TGrain> MockFutureGrain { get; }
         public Mock<TGrain> MockFutureDeletedGrain { get; }
 
 
-        public TDtoBuilder DistantPastDtoBuilder { get; }
+        public TDtoBuilder DistantPastDtoArchivedBuilder { get; }
         public TDtoBuilder PastDtoBuilder { get; }
+        public TDtoBuilder PastDraftDtoBuilder { get; }
         public TDtoBuilder PresentDtoBuilder { get; }
         public TDtoBuilder FutureDtoBuilder { get; }
         public TDtoBuilder FutureDeletedDtoBuilder { get; }

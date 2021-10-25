@@ -37,6 +37,10 @@ namespace Blauhaus.Sync.Server.Orleans.Grains
         {
         }
 
+        protected override Task<TDto> GetDtoAsync(TEntity entity)
+        {
+            return entity.GetDtoAsync();
+        }
 
         public override Task OnActivateAsync()
         {

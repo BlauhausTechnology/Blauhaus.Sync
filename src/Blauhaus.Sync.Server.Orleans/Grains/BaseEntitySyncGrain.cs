@@ -1,9 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
 using Blauhaus.Analytics.Abstractions.Service;
-using Blauhaus.Auth.Abstractions.User;
-using Blauhaus.Domain.Abstractions.CommandHandlers;
-using Blauhaus.Domain.Abstractions.Commands;
 using Blauhaus.Domain.Abstractions.DtoHandlers;
 using Blauhaus.Domain.Abstractions.Entities;
 using Blauhaus.Domain.Server.Entities;
@@ -16,9 +13,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Blauhaus.Sync.Server.Orleans.Grains
 {
-    public abstract class BaseEntitySyncGrain<TDbContext, TEntity, TDto, TDtoSyncGrain, TGrainResolver> : BaseEntityGrain<TDbContext, TEntity, TDto, TGrainResolver>,
-        IVoidAuthenticatedCommandHandler<ActivateCommand, IAuthenticatedUser>,
-        IVoidAuthenticatedCommandHandler<ArchiveCommand, IAuthenticatedUser>
+    public abstract class BaseEntitySyncGrain<TDbContext, TEntity, TDto, TDtoSyncGrain, TGrainResolver> : BaseEntityGrain<TDbContext, TEntity, TDto, TGrainResolver>
         where TDbContext : DbContext
         where TEntity : BaseServerEntity, IDtoOwner<TDto>
         where TDto : IClientEntity<Guid>

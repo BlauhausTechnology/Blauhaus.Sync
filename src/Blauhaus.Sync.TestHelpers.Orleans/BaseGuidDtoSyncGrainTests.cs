@@ -151,6 +151,24 @@ namespace Blauhaus.Sync.TestHelpers.Orleans
             //Assert
             Assert.That(result.Dtos.Count, Is.EqualTo(5));
         }
+
+        [Test]
+        public async Task IF_dto_is_Draft_SHOULD_ignore()
+        {
+            //Arrange
+            await Sut.SetBatchSizeAsync(2);
+            var dto = new TDtoBuilder()
+                .With(x => x.Id, Guid.NewGuid())
+                .With(x => x.EntityState, EntityState.Draft)
+                .With(x => x.ModifiedAtTicks, EntitySet.PastTime.Ticks+1000).Object;
+
+            //Act
+            await Sut.UpdateDtoAsync(dto);
+            var result = await SyncAllAsync(0, User, Sut);
+
+            //Assert
+            Assert.That(result.Dtos.Count, Is.EqualTo(4));
+        }
          
 
         

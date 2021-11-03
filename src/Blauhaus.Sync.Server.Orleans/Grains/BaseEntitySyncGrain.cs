@@ -63,6 +63,16 @@ namespace Blauhaus.Sync.Server.Orleans.Grains
             await DtoSyncGrain.UpdateDtoAsync(dto);
             return Response.Success();
         }
+
+        
+        
+        protected async Task<Response<TDto>> PublishDtoAsync()
+        {
+            var dto = await LoadedEntity.GetDtoAsync();
+            await DtoSyncGrain.UpdateDtoAsync(dto);
+            return Response.Success(dto);
+        }
+
     }
 
 }

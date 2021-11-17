@@ -30,6 +30,11 @@ namespace Blauhaus.Sync.TestHelpers.Orleans
     {
         
         protected EntitySyncSet<TEntity, TEntityBuilder> EntitySet = null!;
+        
+        protected override TSut ConstructGrain()
+        {
+            return Silo.CreateGrainAsync<TSut>(GrainId).GetAwaiter().GetResult();
+        }
 
         public override void Setup()
         {

@@ -1,12 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Linq.Expressions;
 using System.Threading.Tasks;
 using Blauhaus.Analytics.Abstractions.Service;
 using Blauhaus.Domain.Abstractions.DtoHandlers;
 using Blauhaus.Domain.Abstractions.Entities;
-using Blauhaus.Domain.Server.EFCore.Extensions;
 using Blauhaus.Domain.Server.Entities;
 using Blauhaus.Orleans.Abstractions.Resolver;
 using Blauhaus.Orleans.EfCore.Grains;

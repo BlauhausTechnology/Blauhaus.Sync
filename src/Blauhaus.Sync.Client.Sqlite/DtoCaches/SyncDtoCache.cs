@@ -41,7 +41,7 @@ namespace Blauhaus.Sync.Client.Sqlite.DtoCaches
 
         public Task<long?> LoadLastModifiedTicksAsync(IKeyValueProvider? settingsProvider)
         {
-            return InvokeLockedAsync<long?>(async () =>
+            return InvokeAsync<long?>(async () =>
             {
                 var query = SqliteDatabaseService.AsyncConnection.Table<TEntity>()
                     .Where(x => x.SyncState == SyncState.InSync);

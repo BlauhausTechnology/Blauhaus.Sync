@@ -10,10 +10,9 @@ namespace Blauhaus.Sync.Tests.TestObjects
             Id =  Guid.NewGuid();
         }
 
-
         public Guid Id { get; set; }
         public EntityState EntityState { get; set; }
         public long ModifiedAtTicks { get; set; }
-        public string Name { get; set; }
+        public string Name { get; set; } = null!;
     }
 }

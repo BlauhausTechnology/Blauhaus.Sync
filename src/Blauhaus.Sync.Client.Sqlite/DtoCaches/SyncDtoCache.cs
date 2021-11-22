@@ -150,7 +150,6 @@ namespace Blauhaus.Sync.Client.Sqlite.DtoCaches
         }
 
 
-
         protected async Task<IReadOnlyList<TDto>> LoadManyAsync(Expression<Func<TEntity, bool>>? search = null)
         {
             var entities = search == null 

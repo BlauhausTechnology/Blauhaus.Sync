@@ -1,0 +1,70 @@
+﻿using System.Threading.Tasks;
+using Blauhaus.Domain.Abstractions.Entities;
+using Blauhaus.Sync.Abstractions.Common;
+using Blauhaus.Sync.Tests.Client.SyncDtoCacheTests.Base;
+using NUnit.Framework;
+
+namespace Blauhaus.Sync.Tests.Client.SyncDtoCacheTests
+{
+    public class LoadLastModifiedAsyncTests : BaseSyncDtoCacheTest
+    {
+        
+        [Test]
+        public async Task IF_no_Dtos_exist_SHOULD_return_0()
+        {
+            //Act
+            var result = await Sut.LoadLastModifiedTicksAsync(MockKeyValueProvider);
+            
+            //Assert
+            Assert.That(result, Is.EqualTo(0));
+        }
+
+        [Test]
+        public async Task IF_Dtos_exist_SHOULD_return_most_recently_modified()
+        {
+            //Arrange
+            await Connection.InsertAsync(SyncedDtoEntityOne);
+            await Connection.InsertAsync(SyncedDtoEntityTwo);
+            await Connection.InsertAsync(SyncedDtoEntityThree);
+            
+            //Act
+            var result = await Sut.LoadLastModifiedTicksAsync(MockKeyValueProvider);
+            
+            //Assert
+            Assert.That(result, Is.EqualTo(3000));
+        }
+
+        [Test]
+        public async Task SHOULD_apply_additional_filters()
+        {
+            //Arrange
+            Sut.ApplyAdditionalFilter = true;
+            await Connection.InsertAsync(SyncedDtoEntityOne);
+            await Connection.InsertAsync(SyncedDtoEntityTwo);
+            await Connection.InsertAsync(SyncedDtoEntityThree);
+            
+            //Act
+            var result = await Sut.LoadLastModifiedTicksAsync(MockKeyValueProvider);
+            
+            //Assert
+            Assert.That(result, Is.EqualTo(2000));
+        }
+
+        [Test]
+        public async Task IF_entity_is_not_Synced_SHOULD_ignore()
+        {
+            //Arrange
+            SyncedDtoEntityTwo.SyncState = SyncState.OutOfSync;
+            await Connection.InsertAsync(SyncedDtoEntityOne);
+            await Connection.InsertAsync(SyncedDtoEntityTwo);
+            await Connection.InsertAsync(SyncedDtoEntityThree);
+            
+            //Act
+            var result = await Sut.LoadLastModifiedTicksAsync(MockKeyValueProvider);
+            
+            //Assert
+            Assert.That(result, Is.EqualTo(2000));
+        }
+         
+    }
+}

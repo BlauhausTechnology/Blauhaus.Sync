@@ -9,10 +9,11 @@ jobs:
   build:
      runs-on: ubuntu-latest
      steps:
+     - uses: actions/checkout@v2
      - uses: actions/setup-dotnet@v1
-       with: 
-         dotnet-version: '5.0.x' 
-     - uses: actions/checkout@v1
+       with:
+         dotnet-version: '6.0.x'
+         include-prerelease: true
      - name: Set Version
        run: |
         npm install @actions/core --save
@@ -21,6 +22,24 @@ jobs:
        run: |
         dotnet build ./src/Blauhaus.Sync.sln --configuration Release
         dotnet pack ./src/Blauhaus.Sync.Abstractions/Blauhaus.Sync.Abstractions.csproj -p:PackageVersion=${VERSION_NAME} --no-build --output ./ --configuration Release 
+        dotnet pack ./src/Blauhaus.Sync.Client/Blauhaus.Sync.Client.csproj -p:PackageVersion=${VERSION_NAME} --no-build --output ./ --configuration Release 
+        dotnet pack ./src/Blauhaus.Sync.Client.Sqlite/Blauhaus.Sync.Client.Sqlite.csproj -p:PackageVersion=${VERSION_NAME} --no-build --output ./ --configuration Release 
+        dotnet pack ./src/Blauhaus.Sync.TestHelpers/Blauhaus.Sync.TestHelpers.csproj -p:PackageVersion=${VERSION_NAME} --no-build --output ./ --configuration Release 
+        dotnet pack ./src/Blauhaus.Sync.Client.SignalR/Blauhaus.Sync.Client.SignalR.csproj -p:PackageVersion=${VERSION_NAME} --no-build --output ./ --configuration Release 
+        dotnet pack ./src/Blauhaus.Sync.Server.EfCore/Blauhaus.Sync.Server.EfCore.csproj -p:PackageVersion=${VERSION_NAME} --no-build --output ./ --configuration Release 
+        dotnet pack ./src/Blauhaus.Sync.TestHelpers.Orleans/Blauhaus.Sync.TestHelpers.Orleans.csproj -p:PackageVersion=${VERSION_NAME} --no-build --output ./ --configuration Release 
+        dotnet pack ./src/Blauhaus.Sync.TestHelpers.EfCore/Blauhaus.Sync.TestHelpers.EfCore.csproj -p:PackageVersion=${VERSION_NAME} --no-build --output ./ --configuration Release 
+        dotnet pack ./src/Blauhaus.Sync.TestHelpers.Sqlite/Blauhaus.Sync.TestHelpers.Sqlite.csproj -p:PackageVersion=${VERSION_NAME} --no-build --output ./ --configuration Release 
+        dotnet pack ./src/Blauhaus.Sync.Server.Orleans/Blauhaus.Sync.Server.Orleans.csproj -p:PackageVersion=${VERSION_NAME} --no-build --output ./ --configuration Release 
      - name: Deploy NuGet Package
        run:  |
         dotnet nuget push /home/runner/work/Blauhaus.Sync/Blauhaus.Sync/Blauhaus.Sync.Abstractions.${VERSION_NAME}.nupkg -k ${{ secrets.NUGET_API_KEY }} -s https://api.nuget.org/v3/index.json
+        dotnet nuget push /home/runner/work/Blauhaus.Sync/Blauhaus.Sync/Blauhaus.Sync.Client.${VERSION_NAME}.nupkg -k ${{ secrets.NUGET_API_KEY }} -s https://api.nuget.org/v3/index.json
+        dotnet nuget push /home/runner/work/Blauhaus.Sync/Blauhaus.Sync/Blauhaus.Sync.Client.Sqlite.${VERSION_NAME}.nupkg -k ${{ secrets.NUGET_API_KEY }} -s https://api.nuget.org/v3/index.json
+        dotnet nuget push /home/runner/work/Blauhaus.Sync/Blauhaus.Sync/Blauhaus.Sync.TestHelpers.${VERSION_NAME}.nupkg -k ${{ secrets.NUGET_API_KEY }} -s https://api.nuget.org/v3/index.json
+        dotnet nuget push /home/runner/work/Blauhaus.Sync/Blauhaus.Sync/Blauhaus.Sync.Client.SignalR.${VERSION_NAME}.nupkg -k ${{ secrets.NUGET_API_KEY }} -s https://api.nuget.org/v3/index.json
+        dotnet nuget push /home/runner/work/Blauhaus.Sync/Blauhaus.Sync/Blauhaus.Sync.Server.EfCore.${VERSION_NAME}.nupkg -k ${{ secrets.NUGET_API_KEY }} -s https://api.nuget.org/v3/index.json
+        dotnet nuget push /home/runner/work/Blauhaus.Sync/Blauhaus.Sync/Blauhaus.Sync.Server.Orleans.${VERSION_NAME}.nupkg -k ${{ secrets.NUGET_API_KEY }} -s https://api.nuget.org/v3/index.json
+        dotnet nuget push /home/runner/work/Blauhaus.Sync/Blauhaus.Sync/Blauhaus.Sync.TestHelpers.Orleans.${VERSION_NAME}.nupkg -k ${{ secrets.NUGET_API_KEY }} -s https://api.nuget.org/v3/index.json
+        dotnet nuget push /home/runner/work/Blauhaus.Sync/Blauhaus.Sync/Blauhaus.Sync.TestHelpers.EfCore.${VERSION_NAME}.nupkg -k ${{ secrets.NUGET_API_KEY }} -s https://api.nuget.org/v3/index.json
+        dotnet nuget push /home/runner/work/Blauhaus.Sync/Blauhaus.Sync/Blauhaus.Sync.TestHelpers.Sqlite.${VERSION_NAME}.nupkg -k ${{ secrets.NUGET_API_KEY }} -s https://api.nuget.org/v3/index.json

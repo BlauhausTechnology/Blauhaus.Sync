@@ -1,0 +1,51 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+	  <LangVersion>9</LangVersion>
+	  <Nullable>enable</Nullable>
+
+    <IsPackable>false</IsPackable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Include=".TestObjects\MyDto.cs" />
+    <Compile Include=".TestObjects\MyDtoBuilder.cs" />
+    <Compile Include="Client\.TestObjects\MySyncedDtoEntity.cs" />
+    <Compile Include="Client\.TestObjects\MySyncedUserDtoEntity.cs" />
+    <Compile Include=".TestObjects\MyUserDto.cs" />
+    <Compile Include=".TestObjects\MyUserDtoBuilder.cs" />
+    <Compile Include="Client\.Base\BaseClientSyncTest.cs" />
+    <Compile Include="Client\.Base\SqliteConfig.cs" />
+    <Compile Include="Client\DtoSyncClientTests\.Base\BaseDtoSyncClientTest.cs" />
+    <Compile Include="Client\SignalRSyncDtoClientTests\.Base\BaseSignalRSyncDtoClientTest.cs" />
+    <Compile Include="Client\SignalRSyncDtoClientTests\.Base\SignalRConnectionProxyMockBuilder.cs" />
+    <Compile Include="Client\UserSyncDtoCacheTests\.Base\BaseSyncUserDtoCacheTest.cs" />
+    <Compile Include="Client\UserSyncDtoCacheTests\.Base\TestSyncUserDtoCache.cs" />
+    <Compile Include="Client\SyncDtoCacheTests\.Base\BaseSyncDtoCacheTest.cs" />
+    <Compile Include="Client\SyncDtoCacheTests\.Base\TestSyncDtoCache.cs" />
+    <Compile Include="Client\SyncManagerTests\.Base\BaseSyncManagerTest.cs" />
+    <Compile Include="Server\.TestObjects\MyDbContext.cs" />
+    <Compile Include="Server\.TestObjects\MyServerEntity.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.0.0" />
+    <PackageReference Include="NUnit" Version="3.13.2" />
+    <PackageReference Include="NUnit3TestAdapter" Version="4.1.0" />
+    <PackageReference Include="coverlet.collector" Version="3.1.0">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Blauhaus.Sync.Client.Sqlite\Blauhaus.Sync.Client.Sqlite.csproj" />
+    <ProjectReference Include="..\Blauhaus.Sync.Client\Blauhaus.Sync.Client.csproj" />
+    <ProjectReference Include="..\Blauhaus.Sync.Server.Orleans\Blauhaus.Sync.Server.Orleans.csproj" />
+    <ProjectReference Include="..\Blauhaus.Sync.TestHelpers.Orleans\Blauhaus.Sync.TestHelpers.Orleans.csproj" />
+    <ProjectReference Include="..\Blauhaus.Sync.TestHelpers.Sqlite\Blauhaus.Sync.TestHelpers.Sqlite.csproj" />
+    <ProjectReference Include="..\Blauhaus.Sync.TestHelpers\Blauhaus.Sync.TestHelpers.csproj" />
+  </ItemGroup>
+
+</Project>

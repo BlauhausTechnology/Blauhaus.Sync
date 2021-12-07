@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Blauhaus.Analytics.TestHelpers.MockBuilders;
+using Blauhaus.Common.Abstractions;
 using Blauhaus.Domain.Abstractions.DtoHandlers;
 using Blauhaus.Domain.Abstractions.Entities;
 using Blauhaus.Domain.TestHelpers.EFCore.DbContextBuilders;
@@ -27,7 +28,7 @@ namespace Blauhaus.Sync.TestHelpers.EfCore
         where TId : IEquatable<TId>
         where TEntityBuilder : BaseServerEntityBuilder<TEntityBuilder, TEntity>
         where TUserMockBuilder : BaseMockBuilder<TUserMockBuilder, TUser>, new()
-        where TUser : class
+        where TUser : class, IHasId<Guid>
     {
          
         private InMemoryDbContextBuilder<TDbContext> _dbContextBuilder = null!;

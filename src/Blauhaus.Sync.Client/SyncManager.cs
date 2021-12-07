@@ -11,21 +11,21 @@ using Blauhaus.Sync.Client.SyncHandler;
 
 namespace Blauhaus.Sync.Client
 {
-    public class SyncManager : BaseActor, ISyncManager
+    public class SyncManager<TUser> : BaseActor, ISyncManager<TUser>
     {
         private readonly IAnalyticsService _analyticsService;
-        private readonly IEnumerable<IDtoSyncHandler> _dtoSyncHandlers;
+        private readonly IEnumerable<IDtoSyncHandler<TUser>> _dtoSyncHandlers;
         private OverallSyncStatus _overallStatus = null!;
 
         public SyncManager(
             IAnalyticsService analyticsService,
-            IEnumerable<IDtoSyncHandler> dtoSyncHandlers)
+            IEnumerable<IDtoSyncHandler<TUser>> dtoSyncHandlers)
         {
             _analyticsService = analyticsService;
             _dtoSyncHandlers = dtoSyncHandlers;
         }
 
-        public async Task<Response> SyncAllAsync(IKeyValueProvider? settingsProvider)
+        public async Task<Response> SyncAllAsync(TUser? currentUser)
         {
             return await InvokeAsync(async () =>
             {
@@ -36,7 +36,7 @@ namespace Blauhaus.Sync.Client
                 var dtoSyncClientTasks = new List<Task<Response>>();
                 foreach (var dtoSyncClient in _dtoSyncHandlers)
                 {
-                    dtoSyncClientTasks.Add(SyncDtoAsync(dtoSyncClient, settingsProvider));
+                    dtoSyncClientTasks.Add(SyncDtoAsync(dtoSyncClient, currentUser));
                 }
 
                 var syncResults = await Task.WhenAll(dtoSyncClientTasks);
@@ -49,7 +49,7 @@ namespace Blauhaus.Sync.Client
             });
         }
          
-        private async Task<Response> SyncDtoAsync(IDtoSyncHandler dtoSyncHandler, IKeyValueProvider? settingsProvider)
+        private async Task<Response> SyncDtoAsync(IDtoSyncHandler<TUser> dtoSyncHandler, TUser? currentUser)
         {
             var token = dtoSyncHandler.SubscribeAsync(async dtoSyncStatus =>
             {
@@ -57,7 +57,7 @@ namespace Blauhaus.Sync.Client
                 await UpdateSubscribersAsync(_overallStatus);
             });
 
-            var dtoSyncResult = await dtoSyncHandler.SyncDtoAsync(settingsProvider);
+            var dtoSyncResult = await dtoSyncHandler.SyncDtoAsync(currentUser);
 
             token?.Dispose();
 

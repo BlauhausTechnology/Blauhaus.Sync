@@ -4,8 +4,8 @@ using Blauhaus.Responses;
 
 namespace Blauhaus.Sync.Abstractions.Client
 {
-    public interface ISyncManager : IAsyncPublisher<IOverallSyncStatus>
+    public interface ISyncManager<in TUser> : IAsyncPublisher<IOverallSyncStatus>
     {
-        Task<Response> SyncAllAsync(IKeyValueProvider? settingsProvider);
+        Task<Response> SyncAllAsync(TUser? currentUser);
     }
 }

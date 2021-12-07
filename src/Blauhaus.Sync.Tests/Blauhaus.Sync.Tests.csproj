@@ -17,6 +17,7 @@
     <Compile Include=".TestObjects\MyUserDtoBuilder.cs" />
     <Compile Include="Client\.Base\BaseClientSyncTest.cs" />
     <Compile Include="Client\.Base\SqliteConfig.cs" />
+    <Compile Include="Client\.TestObjects\MyTestUser.cs" />
     <Compile Include="Client\DtoSyncClientTests\.Base\BaseDtoSyncClientTest.cs" />
     <Compile Include="Client\SignalRSyncDtoClientTests\.Base\BaseSignalRSyncDtoClientTest.cs" />
     <Compile Include="Client\SignalRSyncDtoClientTests\.Base\SignalRConnectionProxyMockBuilder.cs" />

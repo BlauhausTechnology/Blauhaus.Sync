@@ -6,8 +6,8 @@ using Blauhaus.Sync.Abstractions.Client;
 
 namespace Blauhaus.Sync.Client.SyncHandler
 {
-    public interface IDtoSyncHandler : IAsyncPublisher<DtoSyncStatus>
+    public interface IDtoSyncHandler<in TUser> : IAsyncPublisher<DtoSyncStatus>
     {
-        Task<Response> SyncDtoAsync(IKeyValueProvider? settingsProvider);
+        Task<Response> SyncDtoAsync(TUser? currentUser);
     }
 }

@@ -8,22 +8,23 @@ using Moq;
 namespace Blauhaus.Sync.TestHelpers.MockBuilders
 {
 
-    public class SyncDtoCacheMockBuilder<TDto, TId> : BaseSyncDtoCacheMockBuilder<SyncDtoCacheMockBuilder<TDto, TId>, ISyncDtoCache<TDto, TId>, TDto, TId>
-        where TDto : class, IClientEntity<TId> where TId : IEquatable<TId>
+    public class SyncDtoCacheMockBuilder<TDto, TId, TUser> : BaseSyncDtoCacheMockBuilder<SyncDtoCacheMockBuilder<TDto, TId, TUser>, ISyncDtoCache<TDto, TId, TUser>, TDto, TId, TUser>
+        where TDto : class, IClientEntity<TId> where TId : IEquatable<TId> where TUser : IHasId<TId>
     {
 
     }
 
-    public abstract class BaseSyncDtoCacheMockBuilder<TBuilder, TMock, TDto, TId> : BaseDtoCacheMockBuilder<TBuilder, TMock, TDto, TId>
-        where TBuilder : BaseSyncDtoCacheMockBuilder<TBuilder, TMock, TDto, TId> 
-        where TMock : class, ISyncDtoCache<TDto, TId>
+    public abstract class BaseSyncDtoCacheMockBuilder<TBuilder, TMock, TDto, TId, TUser> : BaseDtoCacheMockBuilder<TBuilder, TMock, TDto, TId>
+        where TBuilder : BaseSyncDtoCacheMockBuilder<TBuilder, TMock, TDto, TId, TUser> 
+        where TMock : class, ISyncDtoCache<TDto, TId, TUser>
         where TDto : class, IClientEntity<TId>
         where TId : IEquatable<TId>
+        where TUser : IHasId<TId>
     {
 
         public TBuilder Where_LoadLastModifiedTicksAsync_returns(long? value)
         {
-            Mock.Setup(x => x.LoadLastModifiedTicksAsync(It.IsAny<IKeyValueProvider?>()))
+            Mock.Setup(x => x.LoadLastModifiedTicksAsync(It.IsAny<TUser?>()))
                 .ReturnsAsync(value);
             return (TBuilder)this;
         }

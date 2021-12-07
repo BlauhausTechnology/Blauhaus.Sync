@@ -8,6 +8,7 @@ using Blauhaus.SignalR.Abstractions.Client;
 using Blauhaus.Sync.Abstractions.Common;
 using Blauhaus.Sync.TestHelpers.MockBuilders;
 using Blauhaus.Sync.Tests.Client.SignalRSyncDtoClientTests.Base;
+using Blauhaus.Sync.Tests.Client.TestObjects;
 using Blauhaus.Sync.Tests.TestObjects;
 using Moq;
 using NUnit.Framework;
@@ -20,7 +21,7 @@ namespace Blauhaus.Sync.Tests.Client.SignalRSyncDtoClientTests
         private IDictionary<string, string> _headers = null!;
         private MyDto _dto = null!;
 
-        protected SyncDtoCacheMockBuilder<MyDto, Guid> MockSyncDtoCache = null!;
+        protected SyncDtoCacheMockBuilder<MyDto, Guid, MyTestUser> MockSyncDtoCache = null!;
         private DtoBatch<MyDto, Guid> _dtoBatch = null!;
 
         public override void Setup()
@@ -38,7 +39,7 @@ namespace Blauhaus.Sync.Tests.Client.SignalRSyncDtoClientTests
             }, 2);
             MockSignalRConnectionProxy.Where_InvokeAsync_returns(Response.Success(_dtoBatch));
 
-            MockSyncDtoCache = new SyncDtoCacheMockBuilder<MyDto, Guid>();
+            MockSyncDtoCache = new SyncDtoCacheMockBuilder<MyDto, Guid, MyTestUser>();
             AddService(MockSyncDtoCache.Object);
 
         }

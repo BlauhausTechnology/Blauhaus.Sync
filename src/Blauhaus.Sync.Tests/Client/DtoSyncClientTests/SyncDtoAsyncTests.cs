@@ -31,7 +31,7 @@ namespace Blauhaus.Sync.Tests.Client.DtoSyncClientTests
             MockSyncDtoCache.Where_LoadLastModifiedTicksAsync_returns(cacheLastModified);
 
             //Act
-            await Sut.SyncDtoAsync(MockKeyValueProvider);
+            await Sut.SyncDtoAsync(TestUser);
 
             //Assert
             MockSyncCommandHandler.Verify_HandleAsync_called_With(x => x.ModifiedAfterTicks == cacheLastModified);
@@ -44,7 +44,7 @@ namespace Blauhaus.Sync.Tests.Client.DtoSyncClientTests
             MockSyncDtoCache.Where_LoadLastModifiedTicksAsync_returns(null);
 
             //Act
-            await Sut.SyncDtoAsync(MockKeyValueProvider);
+            await Sut.SyncDtoAsync(TestUser);
 
             //Assert
             MockSyncCommandHandler.Verify_HandleAsync_NOT_called();
@@ -81,7 +81,7 @@ namespace Blauhaus.Sync.Tests.Client.DtoSyncClientTests
             using var publishedStatuses = await Sut.SubscribeToUpdatesAsync();
             
             //Act
-            await Sut.SyncDtoAsync(MockKeyValueProvider);
+            await Sut.SyncDtoAsync(TestUser);
 
             //Assert
             Assert.That(publishedStatuses.Count, Is.EqualTo(4));
@@ -138,7 +138,7 @@ namespace Blauhaus.Sync.Tests.Client.DtoSyncClientTests
             });
             
             //Act
-            await Sut.SyncDtoAsync(MockKeyValueProvider);
+            await Sut.SyncDtoAsync(TestUser);
 
             //Assert 
             MockSyncCommandHandler.Verify_HandleAsync_called_in_sequence(0, x => x.IsFirstSync);
@@ -157,7 +157,7 @@ namespace Blauhaus.Sync.Tests.Client.DtoSyncClientTests
             });
             
             //Act
-            var result = await Sut.SyncDtoAsync(MockKeyValueProvider);
+            var result = await Sut.SyncDtoAsync(TestUser);
 
             //Assert
             Assert.That(result.Error, Is.EqualTo(Error.InvalidValue("Bob")));
@@ -178,7 +178,7 @@ namespace Blauhaus.Sync.Tests.Client.DtoSyncClientTests
             });
             
             //Act
-            var result = await Sut.SyncDtoAsync(MockKeyValueProvider);
+            var result = await Sut.SyncDtoAsync(TestUser);
 
             //Assert
             Assert.That(result.Error, Is.EqualTo(Error.InvalidValue("Fred")));

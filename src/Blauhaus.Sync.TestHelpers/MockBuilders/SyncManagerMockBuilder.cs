@@ -6,11 +6,11 @@ using Moq;
 
 namespace Blauhaus.Sync.TestHelpers.MockBuilders
 {
-    public class SyncManagerMockBuilder : BaseAsyncPublisherMockBuilder<SyncManagerMockBuilder, ISyncManager, IOverallSyncStatus>
+    public class SyncManagerMockBuilder<TUser> : BaseAsyncPublisherMockBuilder<SyncManagerMockBuilder<TUser>, ISyncManager<TUser>, IOverallSyncStatus>
     {
-        public SyncManagerMockBuilder Where_SyncAllAsync_returns(Response value)
+        public SyncManagerMockBuilder<TUser> Where_SyncAllAsync_returns(Response value)
         {
-            Mock.Setup(x => x.SyncAllAsync(It.IsAny<IKeyValueProvider?>()))
+            Mock.Setup(x => x.SyncAllAsync(It.IsAny<TUser?>()))
                 .ReturnsAsync(value);
             return this;
         }

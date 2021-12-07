@@ -18,10 +18,11 @@ using SQLite;
 
 namespace Blauhaus.Sync.Client.Sqlite.DtoCaches
 {
-    public class SyncDtoCache<TDto, TEntity, TId> : BaseActor, ISyncDtoCache<TDto, TId> 
+    public class SyncDtoCache<TDto, TEntity, TId, TUser> : BaseActor, ISyncDtoCache<TDto, TId, TUser> 
         where TDto : class, IClientEntity<TId>
         where TEntity : BaseSyncClientEntity<TId>, new()
         where TId : IEquatable<TId>
+        where TUser : IHasId<TId>
     {
         protected readonly IAnalyticsService AnalyticsService;
         protected readonly ISqliteDatabaseService SqliteDatabaseService;
@@ -39,16 +40,16 @@ namespace Blauhaus.Sync.Client.Sqlite.DtoCaches
             return Task.FromResult(AddSubscriber(handler, filter));
         }
 
-        public Task<long?> LoadLastModifiedTicksAsync(IKeyValueProvider? settingsProvider)
+        public Task<long?> LoadLastModifiedTicksAsync(TUser? currentUser)
         {
             return InvokeAsync<long?>(async () =>
             {
                 var query = SqliteDatabaseService.AsyncConnection.Table<TEntity>()
                     .Where(x => x.SyncState == SyncState.InSync);
 
-                if (settingsProvider != null)
+                if (currentUser != null)
                 {
-                    var modifiedQuery = ApplyAdditionalFilters(query, settingsProvider);
+                    var modifiedQuery = ApplyAdditionalFilters(query, currentUser);
                     if (modifiedQuery == null)
                     {
                         return null;
@@ -66,7 +67,7 @@ namespace Blauhaus.Sync.Client.Sqlite.DtoCaches
             });
         }
         
-        protected virtual AsyncTableQuery<TEntity>? ApplyAdditionalFilters(AsyncTableQuery<TEntity> query, IKeyValueProvider settingsProvider)
+        protected virtual AsyncTableQuery<TEntity>? ApplyAdditionalFilters(AsyncTableQuery<TEntity> query, TUser currentUser)
         {
             return query;
         }

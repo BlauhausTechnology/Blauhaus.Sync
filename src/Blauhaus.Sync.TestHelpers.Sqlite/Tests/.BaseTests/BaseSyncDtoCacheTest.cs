@@ -16,13 +16,14 @@ using Microsoft.Extensions.DependencyInjection.Extensions;
 
 namespace Blauhaus.Sync.TestHelpers.Sqlite.Tests.BaseTests
 {
-    public abstract class BaseSyncDtoCacheTest<TSut, TDto, TDtoBuilder, TEntity, TId, TConfig>  : BaseSqliteTest<TSut, TConfig>
-        where TSut : SyncDtoCache<TDto, TEntity, TId> 
+    public abstract class BaseSyncDtoCacheTest<TSut, TDto, TDtoBuilder, TEntity, TId, TConfig, TUser>  : BaseSqliteTest<TSut, TConfig>
+        where TSut : SyncDtoCache<TDto, TEntity, TId, TUser> 
         where TDto : class, IClientEntity<TId>
         where TDtoBuilder : IBuilder<TDtoBuilder, TDto>
         where TEntity : BaseSyncClientEntity<TId>, new()
         where TId : IEquatable<TId>
         where TConfig : BaseSqliteConfig
+        where TUser : IHasId<TId>
     {
         
         protected List<TDtoBuilder> DtoBuilders = null!;

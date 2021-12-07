@@ -3,6 +3,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
 using Blauhaus.Analytics.Abstractions.Service;
+using Blauhaus.Common.Abstractions;
 using Blauhaus.Domain.Abstractions.CommandHandlers;
 using Blauhaus.Domain.Abstractions.DtoHandlers;
 using Blauhaus.Domain.Abstractions.Entities;
@@ -17,6 +18,7 @@ namespace Blauhaus.Sync.Server.EfCore.SyncHandlers
     public abstract class BaseDtoSyncCommandHandler<TDbContext, TEntity, TDto, TId, TUser> : IAuthenticatedCommandHandler<DtoBatch<TDto, TId>, DtoSyncCommand, TUser>
         where TDto : IClientEntity<TId> where TId : IEquatable<TId>
         where TEntity: class, IServerEntity, IDtoOwner<TDto>
+        where TUser : IHasId<Guid>
         where TDbContext : DbContext
         
     {

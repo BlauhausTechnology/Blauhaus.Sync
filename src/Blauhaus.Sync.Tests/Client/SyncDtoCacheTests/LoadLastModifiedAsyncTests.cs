@@ -13,7 +13,7 @@ namespace Blauhaus.Sync.Tests.Client.SyncDtoCacheTests
         public async Task IF_no_Dtos_exist_SHOULD_return_0()
         {
             //Act
-            var result = await Sut.LoadLastModifiedTicksAsync(MockKeyValueProvider);
+            var result = await Sut.LoadLastModifiedTicksAsync(TestUser);
             
             //Assert
             Assert.That(result, Is.EqualTo(0));
@@ -28,7 +28,7 @@ namespace Blauhaus.Sync.Tests.Client.SyncDtoCacheTests
             await Connection.InsertAsync(SyncedDtoEntityThree);
             
             //Act
-            var result = await Sut.LoadLastModifiedTicksAsync(MockKeyValueProvider);
+            var result = await Sut.LoadLastModifiedTicksAsync(TestUser);
             
             //Assert
             Assert.That(result, Is.EqualTo(3000));
@@ -44,7 +44,7 @@ namespace Blauhaus.Sync.Tests.Client.SyncDtoCacheTests
             await Connection.InsertAsync(SyncedDtoEntityThree);
             
             //Act
-            var result = await Sut.LoadLastModifiedTicksAsync(MockKeyValueProvider);
+            var result = await Sut.LoadLastModifiedTicksAsync(TestUser);
             
             //Assert
             Assert.That(result, Is.EqualTo(2000));
@@ -60,7 +60,7 @@ namespace Blauhaus.Sync.Tests.Client.SyncDtoCacheTests
             await Connection.InsertAsync(SyncedDtoEntityThree);
             
             //Act
-            var result = await Sut.LoadLastModifiedTicksAsync(MockKeyValueProvider);
+            var result = await Sut.LoadLastModifiedTicksAsync(TestUser);
             
             //Assert
             Assert.That(result, Is.EqualTo(2000));

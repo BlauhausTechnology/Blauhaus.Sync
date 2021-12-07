@@ -13,19 +13,20 @@ using Blauhaus.Sync.Client.SyncHandler;
 
 namespace Blauhaus.Sync.Client
 {
-    public class DtoSyncHandler<TDto, TId> : BaseActor, IDtoSyncHandler
+    public class DtoSyncHandler<TDto, TId, TUser> : BaseActor, IDtoSyncHandler<TUser>
         where TDto : class, IClientEntity<TId>
         where TId : IEquatable<TId>
+        where TUser : IHasId<TId>
     {
         private readonly IAnalyticsService _analyticsService;
-        private readonly ISyncDtoCache<TDto, TId> _syncDtoCache;
+        private readonly ISyncDtoCache<TDto, TId, TUser> _syncDtoCache;
         private readonly ICommandHandler<DtoBatch<TDto, TId>, DtoSyncCommand> _syncCommandHandler;
 
         protected string DtoName = typeof(TDto).Name;
 
         public DtoSyncHandler(
             IAnalyticsService analyticsService,
-            ISyncDtoCache<TDto, TId> syncDtoCache,
+            ISyncDtoCache<TDto, TId, TUser> syncDtoCache,
             ICommandHandler<DtoBatch<TDto, TId>, DtoSyncCommand> syncCommandHandler)
         {
             _analyticsService = analyticsService;
@@ -33,11 +34,11 @@ namespace Blauhaus.Sync.Client
             _syncCommandHandler = syncCommandHandler;
         }
          
-        public Task<Response> SyncDtoAsync(IKeyValueProvider? settingsProvider)
+        public Task<Response> SyncDtoAsync(TUser? currentUser)
         {
             return InvokeAsync(async () =>
             {
-                var lastModifiedTicks = await _syncDtoCache.LoadLastModifiedTicksAsync(settingsProvider);
+                var lastModifiedTicks = await _syncDtoCache.LoadLastModifiedTicksAsync(currentUser);
 
                 if (lastModifiedTicks == null)
                 {

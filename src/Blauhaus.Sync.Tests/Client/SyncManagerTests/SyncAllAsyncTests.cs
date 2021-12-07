@@ -7,6 +7,7 @@ using Blauhaus.Responses;
 using Blauhaus.Sync.Abstractions.Client;
 using Blauhaus.Sync.Client;
 using Blauhaus.Sync.Tests.Client.SyncManagerTests.Base;
+using Blauhaus.Sync.Tests.Client.TestObjects;
 using Newtonsoft.Json;
 using NUnit.Framework;
 
@@ -18,10 +19,10 @@ namespace Blauhaus.Sync.Tests.Client.SyncManagerTests
         public async Task SHOULD_sync_all_DtoSyncClients()
         {
             //Act
-            await Sut.SyncAllAsync(MockKeyValueProvider);
+            await Sut.SyncAllAsync(TestUser);
 
             //Assert
-            MockSyncClient1.Verify(x => x.SyncDtoAsync(MockKeyValueProvider));
+            MockSyncClient1.Verify(x => x.SyncDtoAsync(TestUser));
         }
 
         [Test]
@@ -31,7 +32,7 @@ namespace Blauhaus.Sync.Tests.Client.SyncManagerTests
             MockSyncClient2.Where_SyncDtoAsync_returns(Response.Failure(Error.Cancelled));
 
             //Act
-            var result = await Sut.SyncAllAsync(MockKeyValueProvider);
+            var result = await Sut.SyncAllAsync(TestUser);
 
             //Assert
             Assert.That(result.Error, Is.EqualTo(Error.Cancelled));
@@ -50,7 +51,7 @@ namespace Blauhaus.Sync.Tests.Client.SyncManagerTests
             using var statusUpdates = await Sut.SubscribeToUpdatesAsync();
             
             //Act
-            await Sut.SyncAllAsync(MockKeyValueProvider);
+            await Sut.SyncAllAsync(TestUser);
 
             //Assert
             Assert.That(statusUpdates.Count, Is.EqualTo(4));

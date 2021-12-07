@@ -11,7 +11,7 @@ using SQLite;
 
 namespace Blauhaus.Sync.Tests.Client.SyncDtoCacheTests.Base
 {
-    public class TestSyncDtoCache : SyncDtoCache<MyDto, MySyncedDtoEntity, Guid>
+    public class TestSyncDtoCache : SyncDtoCache<MyDto, MySyncedDtoEntity, Guid, MyTestUser>
     {
         public TestSyncDtoCache(IAnalyticsService analyticsService, ISqliteDatabaseService sqliteDatabaseService) : base(analyticsService, sqliteDatabaseService)
         {
@@ -24,7 +24,7 @@ namespace Blauhaus.Sync.Tests.Client.SyncDtoCacheTests.Base
             return entity;
         }
 
-        protected override AsyncTableQuery<MySyncedDtoEntity>? ApplyAdditionalFilters(AsyncTableQuery<MySyncedDtoEntity> query, IKeyValueProvider settingsProvider)
+        protected override AsyncTableQuery<MySyncedDtoEntity>? ApplyAdditionalFilters(AsyncTableQuery<MySyncedDtoEntity> query, MyTestUser settingsProvider)
         {
             return ApplyAdditionalFilter ? query.Where(x => x.Name.Contains("Bill")) : base.ApplyAdditionalFilters(query, settingsProvider);
         }

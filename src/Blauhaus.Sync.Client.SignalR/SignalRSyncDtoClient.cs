@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using Blauhaus.Analytics.Abstractions.Extensions;
 using Blauhaus.Analytics.Abstractions.Service;
+using Blauhaus.Common.Abstractions;
 using Blauhaus.DeviceServices.Abstractions.Connectivity;
 using Blauhaus.Domain.Abstractions.Entities;
 using Blauhaus.Errors;
@@ -14,15 +15,16 @@ using Blauhaus.Sync.Abstractions.Common;
 
 namespace Blauhaus.Sync.Client.SignalR
 {
-    public class SignalRSyncDtoClient<TDto, TId> : BaseSignalRDtoClient<TDto,TId, ISyncDtoCache<TDto, TId>>, ISignalRSyncDtoClient<TDto, TId>
+    public class SignalRSyncDtoClient<TDto, TId, TUser> : BaseSignalRDtoClient<TDto,TId, ISyncDtoCache<TDto, TId, TUser>>, ISignalRSyncDtoClient<TDto, TId>
         where TDto : class, IClientEntity<TId> 
         where TId : IEquatable<TId>
+        where TUser : IHasId<TId>
     { 
 
         public SignalRSyncDtoClient(
             IAnalyticsService analyticsService, 
             IConnectivityService connectivityService,
-            ISyncDtoCache<TDto, TId> syncDtoCache,
+            ISyncDtoCache<TDto, TId, TUser> syncDtoCache,
             ISignalRConnectionProxy connection) 
                 : base(analyticsService, connectivityService, syncDtoCache, connection)
         {

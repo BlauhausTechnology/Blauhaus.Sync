@@ -7,10 +7,12 @@ using Blauhaus.Sync.Abstractions.Common;
 
 namespace Blauhaus.Sync.Abstractions.Client
 {
-    public interface ISyncDtoCache<TDto, TId> : IDtoCache<TDto, TId>
-        where TDto : class, IClientEntity<TId> where TId : IEquatable<TId>
+    public interface ISyncDtoCache<TDto, TId, in TUser> : IDtoCache<TDto, TId>
+        where TDto : class, IClientEntity<TId> 
+        where TId : IEquatable<TId>
+        where TUser : IHasId<TId>
     {
-        Task<long?> LoadLastModifiedTicksAsync(IKeyValueProvider? settingsProvider);
+        Task<long?> LoadLastModifiedTicksAsync(TUser? currentUser);
         Task SaveSyncedDtosAsync(DtoBatch<TDto, TId> dtoBatch);
 
     }

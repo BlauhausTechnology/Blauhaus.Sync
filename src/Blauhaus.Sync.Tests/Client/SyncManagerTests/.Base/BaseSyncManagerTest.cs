@@ -3,26 +3,27 @@ using Blauhaus.Sync.Client;
 using Blauhaus.Sync.TestHelpers;
 using Blauhaus.Sync.TestHelpers.MockBuilders;
 using Blauhaus.Sync.Tests.Client.Base;
+using Blauhaus.Sync.Tests.Client.TestObjects;
 using Blauhaus.TestHelpers.MockBuilders;
 
 namespace Blauhaus.Sync.Tests.Client.SyncManagerTests.Base
 {
-    public abstract class BaseSyncManagerTest : BaseClientSyncTest<SyncManager>
+    public abstract class BaseSyncManagerTest : BaseClientSyncTest<SyncManager<MyTestUser>>
     {
 
-        protected DtoSyncClientMockBuilder MockSyncClient1 = null!;
-        protected DtoSyncClientMockBuilder MockSyncClient2 = null!;
-        protected DtoSyncClientMockBuilder MockSyncClient3 = null!;
+        protected DtoSyncClientMockBuilder<MyTestUser> MockSyncClient1 = null!;
+        protected DtoSyncClientMockBuilder<MyTestUser> MockSyncClient2 = null!;
+        protected DtoSyncClientMockBuilder<MyTestUser> MockSyncClient3 = null!;
         
-        protected IKeyValueProvider MockKeyValueProvider = new MockBuilder<IKeyValueProvider>().Object;
+        protected MyTestUser TestUser = new();
 
         public override void Setup()
         {
             base.Setup();
 
-            MockSyncClient1 = new DtoSyncClientMockBuilder();
-            MockSyncClient2 = new DtoSyncClientMockBuilder();
-            MockSyncClient3 = new DtoSyncClientMockBuilder();
+            MockSyncClient1 = new DtoSyncClientMockBuilder<MyTestUser>();
+            MockSyncClient2 = new DtoSyncClientMockBuilder<MyTestUser>();
+            MockSyncClient3 = new DtoSyncClientMockBuilder<MyTestUser>();
 
             AddService(MockSyncClient1.Object);
             AddService(MockSyncClient2.Object);

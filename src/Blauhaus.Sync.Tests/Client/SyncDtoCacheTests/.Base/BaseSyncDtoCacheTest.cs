@@ -19,7 +19,7 @@ namespace Blauhaus.Sync.Tests.Client.SyncDtoCacheTests.Base
         protected MySyncedDtoEntity SyncedDtoEntityTwo = null!;
         protected MySyncedDtoEntity SyncedDtoEntityThree = null!;
         
-        protected IKeyValueProvider MockKeyValueProvider = new MockBuilder<IKeyValueProvider>().Object;
+        protected MyTestUser TestUser = new();
         public override void Setup()
         {
             base.Setup();

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Security.Cryptography;
+using Blauhaus.Auth.Abstractions.User;
 using Blauhaus.Common.Abstractions;
 using Blauhaus.Domain.Abstractions.Entities;
 using Blauhaus.Sync.Abstractions.Common;
@@ -14,7 +15,7 @@ namespace Blauhaus.Sync.Server.EfCore.Ioc
             where TDto : IClientEntity<TId> 
             where THandler : class, IAuthenticatedCommandHandler<DtoBatch<TDto, TId>, DtoSyncCommand, TUser>
             where TId : IEquatable<TId>
-            where TUser : IHasId<Guid>
+            where TUser : IAuthenticatedUser
         {
 
             services.AddTransient<IAuthenticatedCommandHandler<DtoBatch<TDto, TId>, DtoSyncCommand, TUser>, THandler>();

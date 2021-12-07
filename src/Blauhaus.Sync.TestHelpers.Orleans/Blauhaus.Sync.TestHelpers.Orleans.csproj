@@ -1,0 +1,22 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+	  <TargetFramework>net5.0</TargetFramework>
+	  <LangVersion>9</LangVersion>
+	  <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Blauhaus.Orleans.TestHelpers" Version="0.7.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Blauhaus.Sync.Server.Orleans\Blauhaus.Sync.Server.Orleans.csproj" />
+    <ProjectReference Include="..\Blauhaus.Sync.TestHelpers.EfCore\Blauhaus.Sync.TestHelpers.EfCore.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="BaseEntitySyncGrainTests\" />
+  </ItemGroup>
+
+</Project>

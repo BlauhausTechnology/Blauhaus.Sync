@@ -1,0 +1,24 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+	  <TargetFramework>netstandard2.0</TargetFramework>
+	  <LangVersion>9</LangVersion>
+	  <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Include=".Ioc\ServiceCollectionExtensions.cs" />
+  </ItemGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\Blauhaus.Sync.Abstractions\Blauhaus.Sync.Abstractions.csproj" />
+		<ProjectReference Include="..\Blauhaus.Sync.Client\Blauhaus.Sync.Client.csproj" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<PackageReference Include="Blauhaus.ClientActors" Version="0.10.7" />
+		<PackageReference Include="Blauhaus.ClientDatabase.Sqlite" Version="0.7.13" />
+		<PackageReference Include="Blauhaus.Domain.Client.Sqlite" Version="1.6.30" />
+	</ItemGroup>
+
+</Project>

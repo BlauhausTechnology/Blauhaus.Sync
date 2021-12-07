@@ -1,0 +1,19 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+	  <TargetFramework>netstandard2.0</TargetFramework>
+      <LangVersion>9</LangVersion>
+      <Nullable>enable</Nullable>
+  </PropertyGroup> 
+
+    <ItemGroup>
+	    <PackageReference Include="Blauhaus.Common.Abstractions" Version="1.12.13" />
+	    <PackageReference Include="Blauhaus.Domain.Abstractions" Version="1.6.30" />
+	    <PackageReference Include="Blauhaus.Errors" Version="0.4.4" />
+    </ItemGroup> 
+
+    <ItemGroup>
+      <Folder Include="Server\" />
+    </ItemGroup>
+
+</Project>

@@ -1,12 +1,14 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net5.0</TargetFramework>
+	  <TargetFramework>net6.0</TargetFramework>
+	  <LangVersion>latest</LangVersion>
+	  <Nullable>enable</Nullable>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Blauhaus.Orleans" Version="0.7.6" />
-    <PackageReference Include="Blauhaus.Orleans.EfCore" Version="0.7.6" />
+    <PackageReference Include="Blauhaus.Orleans" Version="0.8.0" />
+    <PackageReference Include="Blauhaus.Orleans.EfCore" Version="0.8.0" />
   </ItemGroup>
 
   <ItemGroup>

@@ -1,13 +1,13 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-	  <TargetFramework>net5.0</TargetFramework>
-	  <LangVersion>9</LangVersion>
+	  <TargetFramework>net6.0</TargetFramework>
+	  <LangVersion>latest</LangVersion>
 	  <Nullable>enable</Nullable>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Blauhaus.Domain.TestHelpers.EFCore" Version="1.6.36" />
+    <PackageReference Include="Blauhaus.Domain.TestHelpers.EFCore" Version="1.7.0" />
   </ItemGroup>
 
   <ItemGroup>

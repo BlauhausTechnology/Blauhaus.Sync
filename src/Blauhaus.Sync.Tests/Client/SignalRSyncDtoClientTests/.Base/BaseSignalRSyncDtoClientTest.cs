@@ -1,4 +1,6 @@
 ﻿using System;
+using Blauhaus.Analytics.Abstractions;
+using Blauhaus.Analytics.TestHelpers.MockBuilders;
 using Blauhaus.DeviceServices.Abstractions.Connectivity;
 using Blauhaus.DeviceServices.TestHelpers.MockBuilders;
 using Blauhaus.SignalR.Client.Connection.Proxy;

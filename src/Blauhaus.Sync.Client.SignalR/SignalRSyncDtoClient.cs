@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
+using Blauhaus.Analytics.Abstractions;
 using Blauhaus.Analytics.Abstractions.Extensions;
 using Blauhaus.Analytics.Abstractions.Service;
 using Blauhaus.Common.Abstractions;
@@ -12,6 +13,7 @@ using Blauhaus.SignalR.Client.Clients.Base;
 using Blauhaus.SignalR.Client.Connection.Proxy;
 using Blauhaus.Sync.Abstractions.Client;
 using Blauhaus.Sync.Abstractions.Common;
+using Microsoft.Extensions.Logging;
 
 namespace Blauhaus.Sync.Client.SignalR
 {
@@ -19,36 +21,39 @@ namespace Blauhaus.Sync.Client.SignalR
         where TDto : class, IClientEntity<TId> 
         where TId : IEquatable<TId>
         where TUser : IHasId<TId>
-    { 
+    {
+        private readonly IAnalyticsContext _analyticsContext;
 
         public SignalRSyncDtoClient(
-            IAnalyticsService analyticsService, 
+            IAnalyticsLogger<SignalRSyncDtoClient<TDto, TId, TUser>> logger, 
+            IAnalyticsContext analyticsContext,
             IConnectivityService connectivityService,
             ISyncDtoCache<TDto, TId, TUser> syncDtoCache,
             ISignalRConnectionProxy connection) 
-                : base(analyticsService, connectivityService, syncDtoCache, connection)
+                : base(logger, analyticsContext, connectivityService, syncDtoCache, connection)
         {
+            _analyticsContext = analyticsContext;
         }
          
         public async Task<Response<DtoBatch<TDto, TId>>> HandleAsync(DtoSyncCommand command)
         {
             if (!ConnectivityService.IsConnectedToInternet)
             {
-                AnalyticsService.TraceWarning(this, "SignalR hub could not be invoked because there is no internet connection");
+                Logger.LogWarning("SignalR hub could not be invoked because there is no internet connection");
                 return Response.Failure<DtoBatch<TDto, TId>>(SignalRErrors.NoInternet);
             }
             
             await Locker.WaitAsync();
             try
             {
-                var result = await Connection.InvokeAsync<Response<DtoBatch<TDto, TId>>>($"Handle{typeof(TDto).Name}SyncCommandAsync", command, AnalyticsService.AnalyticsOperationHeaders);
+                var result = await Connection.InvokeAsync<Response<DtoBatch<TDto, TId>>>($"Handle{typeof(TDto).Name}SyncCommandAsync", command, _analyticsContext.GetAllValues());
 
                 if (result.IsFailure)
                 {
                     return Response.Failure<DtoBatch<TDto, TId>>(result.Error);
                 }
                 
-                AnalyticsService.Debug($"Successfully handled {nameof(DtoSyncCommand)} and received: {result.Value}" );
+                Logger.LogTrace("Successfully handled DtoSyncCommand");
 
                 var dtoBatch = result.Value;
 
@@ -64,11 +69,11 @@ namespace Blauhaus.Sync.Client.SignalR
             }
             catch (ErrorException errorException)
             {
-                return AnalyticsService.TraceErrorResponse<DtoBatch<TDto, TId>>(this, errorException.Error, command.ToObjectDictionary());
+                return Logger.LogErrorResponse<DtoBatch<TDto, TId>>(errorException.Error);
             }
             catch (Exception e)
             {
-                return AnalyticsService.LogExceptionResponse<DtoBatch<TDto, TId>>(this, e, SignalRErrors.InvocationFailure(e), command.ToObjectDictionary());
+                return Logger.LogErrorResponse<DtoBatch<TDto, TId>>(SignalRErrors.InvocationFailure(e), e);
             }
             finally
             {

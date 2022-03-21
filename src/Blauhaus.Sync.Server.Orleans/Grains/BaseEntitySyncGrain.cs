@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
+using Blauhaus.Analytics.Abstractions;
 using Blauhaus.Analytics.Abstractions.Service;
 using Blauhaus.Domain.Abstractions.DtoHandlers;
 using Blauhaus.Domain.Abstractions.Entities;
@@ -25,10 +26,10 @@ namespace Blauhaus.Sync.Server.Orleans.Grains
 
         protected BaseEntitySyncGrain(
             Func<TDbContext> dbContextFactory,
-            IAnalyticsService analyticsService,
+            IAnalyticsLogger logger,
             ITimeService timeService,
             TGrainResolver grainResolver)
-            : base(dbContextFactory, analyticsService, timeService, grainResolver)
+            : base(logger, dbContextFactory, timeService, grainResolver)
         {
         }
 
@@ -43,26 +44,26 @@ namespace Blauhaus.Sync.Server.Orleans.Grains
             return base.OnActivateAsync();
         }
          
-        protected override async Task<Response> HandleActivatedAsync(TEntity loadedEntity)
-        {
-            var dto = await LoadedEntity.GetDtoAsync();
-            await DtoSyncGrain.UpdateDtoAsync(dto);
-            return Response.Success();
-        }
+        //protected override async Task<Response> HandleActivatedAsync(TEntity loadedEntity)
+        //{
+        //    var dto = await LoadedEntity.GetDtoAsync();
+        //    await DtoSyncGrain.UpdateDtoAsync(dto);
+        //    return Response.Success();
+        //}
 
-        protected override async Task<Response> HandleArchivedAsync(TEntity entity)
-        {
-            var dto = await LoadedEntity.GetDtoAsync();
-            await DtoSyncGrain.UpdateDtoAsync(dto);
-            return Response.Success();
-        }
+        //protected override async Task<Response> HandleArchivedAsync(TEntity entity)
+        //{
+        //    var dto = await LoadedEntity.GetDtoAsync();
+        //    await DtoSyncGrain.UpdateDtoAsync(dto);
+        //    return Response.Success();
+        //}
 
-        protected override async Task<Response> HandleDeletedAsync(TEntity entity)
-        {
-            var dto = await LoadedEntity.GetDtoAsync();
-            await DtoSyncGrain.UpdateDtoAsync(dto);
-            return Response.Success();
-        }
+        //protected override async Task<Response> HandleDeletedAsync(TEntity entity)
+        //{
+        //    var dto = await LoadedEntity.GetDtoAsync();
+        //    await DtoSyncGrain.UpdateDtoAsync(dto);
+        //    return Response.Success();
+        //}
 
         
         

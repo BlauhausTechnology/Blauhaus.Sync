@@ -18,7 +18,7 @@ namespace Blauhaus.Sync.Tests.Client.SignalRSyncDtoClientTests
     public class HandleSyncCommandTests : BaseSignalRSyncDtoClientTest
     {
         private DtoSyncCommand _command = null!;
-        private IDictionary<string, string> _headers = null!;
+        private Dictionary<string, object> _headers = null!;
         private MyDto _dto = null!;
 
         protected SyncDtoCacheMockBuilder<MyDto, Guid, MyTestUser> MockSyncDtoCache = null!;
@@ -29,9 +29,9 @@ namespace Blauhaus.Sync.Tests.Client.SignalRSyncDtoClientTests
             base.Setup();
 
             _command = DtoSyncCommand.Create<MyDto>(10);
-            _headers = new Dictionary<string, string>{["Key"] = "Value"};
-            MockAnalyticsService.With(x => x.AnalyticsOperationHeaders, _headers);
-            
+            _headers = new Dictionary<string, object>{["Key"] = "Value"};
+            MockAnalyticsContext.Where_GetAllValues_returns(_headers);
+
             _dto = new MyDto{ModifiedAtTicks = 10001};
             _dtoBatch = DtoBatch<MyDto, Guid>.Create(new List<MyDto>
             {
@@ -113,7 +113,6 @@ namespace Blauhaus.Sync.Tests.Client.SignalRSyncDtoClientTests
 
             //Assert
             Assert.That(result.Error == SignalRErrors.NoInternet);
-            MockAnalyticsService.VerifyTrace("SignalR hub could not be invoked because there is no internet connection", LogSeverity.Warning);
         }
         
         [Test]
@@ -128,7 +127,6 @@ namespace Blauhaus.Sync.Tests.Client.SignalRSyncDtoClientTests
 
             //Assert
             Assert.That(result.Error.Equals(SignalRErrors.InvocationFailure(e)));
-            MockAnalyticsService.VerifyLogExceptionWithMessage("Something bad happened");
         } 
         
         [Test]
@@ -143,7 +141,6 @@ namespace Blauhaus.Sync.Tests.Client.SignalRSyncDtoClientTests
 
             //Assert
             Assert.That(result.Error.Equals(Error.Cancelled));
-            MockAnalyticsService.VerifyTrace(Error.Cancelled.ToString(), LogSeverity.Error);
         } 
 
     }

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Blauhaus.Analytics.Abstractions;
 using Blauhaus.Analytics.Abstractions.Service;
 using Blauhaus.Domain.Abstractions.DtoHandlers;
 using Blauhaus.Domain.Abstractions.Entities;
@@ -31,10 +32,10 @@ namespace Blauhaus.Sync.Server.Orleans.Grains
 
         protected BaseGuidDtoSyncGrain(
             Func<TDbContext> dbContextFactory, 
-            IAnalyticsService analyticsService, 
+            IAnalyticsLogger logger, 
             ITimeService timeService,
             TGrainResolver grainResolver) 
-                : base(dbContextFactory, analyticsService, timeService, grainResolver)
+                : base(dbContextFactory, logger, timeService, grainResolver)
         {
         }
 

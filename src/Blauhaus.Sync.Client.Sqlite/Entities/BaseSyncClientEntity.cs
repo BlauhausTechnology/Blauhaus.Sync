@@ -1,4 +1,5 @@
-﻿using Blauhaus.Domain.Client.Sqlite.Entities;
+﻿using Blauhaus.Domain.Abstractions.Entities;
+using Blauhaus.Domain.Client.Sqlite.Entities;
 using Blauhaus.Sync.Abstractions.Client;
 using Blauhaus.Sync.Abstractions.Common;
 using SQLite;

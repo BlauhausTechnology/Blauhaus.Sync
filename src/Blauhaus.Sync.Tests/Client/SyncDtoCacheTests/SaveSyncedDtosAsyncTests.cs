@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Blauhaus.Domain.Abstractions.Entities;
 using Blauhaus.Sync.Abstractions.Common;
 using Blauhaus.Sync.Tests.Client.SyncDtoCacheTests.Base;
 using Blauhaus.Sync.Tests.Client.TestObjects;

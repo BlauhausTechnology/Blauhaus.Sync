@@ -7,8 +7,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Blauhaus.Orleans" Version="0.8.1" />
-    <PackageReference Include="Blauhaus.Orleans.EfCore" Version="0.8.1" />
+    <PackageReference Include="Blauhaus.Orleans" Version="0.9.6" />
+    <PackageReference Include="Blauhaus.Orleans.EfCore" Version="0.9.6" />
   </ItemGroup>
 
   <ItemGroup>
